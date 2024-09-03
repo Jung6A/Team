@@ -34,10 +34,12 @@ a:hover{
 #footer{
     display: flex;
     align-items: center;
+    justify-content: center;
     border-top: 1px solid orange;
     padding: 5px;
     background: orange;
 }
 #copyright{
     color: white;
+    text-align: center;
 }
