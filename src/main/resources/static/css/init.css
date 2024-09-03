@@ -14,8 +14,11 @@ a:hover{
     color: orange;
 }
 #wrap{
-    width: 100%;
+    width: 80%;
+    margin: 0 auto;
     position: relative;
+    border-left: 1px solid lightgray;
+    border-right: 1px solid lightgray;
 }
 /* header 스타일 */
 #header{
@@ -28,7 +31,15 @@ a:hover{
 }
 #nav{
     width: 100%;
+    position: relative;
     display: flex;
+}
+#nav #logo{
+    width: 80%;
+    text-align: center;
+}
+#nav #menu{
+    width: 10%;
 }
 /* footer 스타일 */
 #footer{
@@ -42,4 +53,8 @@ a:hover{
 #copyright{
     color: white;
     text-align: center;
+}
+/* 메인 */
+#main{
+    border: 0;
 }
