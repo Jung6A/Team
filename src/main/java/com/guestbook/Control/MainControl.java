@@ -12,6 +12,4 @@ public class MainControl {
     public String main() {
         return "index";
     }
-
-    테스트11
 }
