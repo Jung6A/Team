@@ -55,11 +55,11 @@ public class MemberControl {
         return "redirect:/member/signIn";
     }
 
-    // 로그인 실패 - 아이디나 비밀번호 틀린경우
-    @GetMapping("/signIn/error")
-    public String loginFail(Model model){
-        model.addAttribute("loginFailMsg",
-                "아이디 또는 비밀번호가 올바르지 않습니다.");
-        return "member/login";
-    }
+//    // 로그인 실패 - 아이디나 비밀번호 틀린경우
+//    @GetMapping("/signIn/error")
+//    public String loginFail(Model model){
+//        model.addAttribute("loginFailMsg",
+//                "아이디 또는 비밀번호가 올바르지 않습니다.");
+//        return "member/login";
+//    }
 }
