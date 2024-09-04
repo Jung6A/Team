@@ -23,9 +23,7 @@ public class signInDto {
     private String password;
 
     private String name;
-    private String addr1; // 주소
-    private String addr2; // 상세주소
-    private int zipCode;  // 우편번호
+
 
 
     //DTO -> Entity  회원가입 시 동작메서드
@@ -34,9 +32,6 @@ public class signInDto {
         member.setName( this.name );
         member.setEmail( this.email );
         member.setUserId( this.userId );
-        member.setZipCode( this.zipCode );
-        member.setAddr1( this.addr1);
-        member.setAddr2( this.addr2 );
         member.setRole(Role.USER);
         String pw = passwordEncoder.encode( this.password);
         member.setPassword( pw );
@@ -48,9 +43,6 @@ public class signInDto {
         signInDto signInDto = new signInDto();
         signInDto.setName( member.getName());
         signInDto.setEmail(member.getEmail());
-        signInDto.setAddr1(member.getAddr1());
-        signInDto.setAddr2(member.getAddr2());
-        signInDto.setZipCode(member.getZipCode());
         signInDto.setUserId(member.getUserId());
         return signInDto;
     }

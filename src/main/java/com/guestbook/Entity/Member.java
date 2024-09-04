@@ -25,9 +25,7 @@ public class Member {
 
     @Column(unique = true)
     private String email;
-    private String addr1;
-    private String addr2;
-    private int zipCode;
+
 
     @Enumerated(EnumType.STRING)
     private Role role;
