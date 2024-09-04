@@ -1,5 +1,6 @@
 package com.guestbook.Entity;
 
+import com.guestbook.constant.Role;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,4 +15,11 @@ public class Guestbook {
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name="guestbook_id")
     private long id;
+
+    private String userId;
+    private String password;
+    private String email;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }
