@@ -15,7 +15,6 @@ import javax.validation.Valid;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/member")
 public class MemberControl {
 
     private final MemberService memberService;
@@ -24,7 +23,6 @@ public class MemberControl {
     // 로그인 페이지 요청
     @GetMapping("/login")
     public String loginPage(Model model){
-
         return "member/login";
     }
 
@@ -52,7 +50,7 @@ public class MemberControl {
             return "member/join";
         }
 
-        return "redirect:/member/join";
+        return "redirect:/join";
     }
 
 //    // 로그인 실패 - 아이디나 비밀번호 틀린경우

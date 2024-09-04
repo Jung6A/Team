@@ -22,14 +22,11 @@ public class signInDto {
     @Size(min=4 , max=12, message="비밀번호는 4~12자리 입니다.")
     private String password;
 
-    private String name;
-
 
 
     //DTO -> Entity  회원가입 시 동작메서드
     public Member createEntity(PasswordEncoder passwordEncoder){
         Member member = new Member();
-        member.setName( this.name );
         member.setEmail( this.email );
         member.setUserId( this.userId );
         member.setRole(Role.USER);
@@ -41,7 +38,6 @@ public class signInDto {
  //    Entity -> DTO
     public static signInDto of(Member member){
         signInDto signInDto = new signInDto();
-        signInDto.setName( member.getName());
         signInDto.setEmail(member.getEmail());
         signInDto.setUserId(member.getUserId());
         return signInDto;

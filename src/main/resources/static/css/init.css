@@ -5,13 +5,15 @@
     box-sizing: border-box;
 }
 
-body {
+#wrap { /* 헤더에는 body가 없어서 감싸고 있는 div(id="wrap")으로 수정. display 수정은 뭔가 꼬이길래 일단 주석 처리함 */
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
-    display: flex;
-    justify-content: center; /* 콘텐츠를 화면 중앙으로 수평 정렬 */
-    flex-direction: column;  /* 수직으로 쌓이도록 설정 */
-    align-items: center; /* 콘텐츠를 화면 중앙으로 수직 정렬 */
+    min-height: 100vh; /* 화면 전체 높이 설정 */
+    /* display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    */
     min-height: 100vh; /* 화면 전체 높이 설정 */
 }
 
@@ -44,6 +46,7 @@ body {
     text-decoration: none;
 }
 
+/* menu는 id가 아니라 class라 수정 */
 .menu {
     display: flex;
     gap: 20px; /* 로그인과 회원가입 간의 간격 */
@@ -60,10 +63,8 @@ body {
 }
 
 /* 본문 스타일링 */
-#cardWrap {
-    margin-top: 100px; /* 헤더 아래 여백 확보 */
-    width: 100%;
-    max-width: 1200px;
+#cardWrap { /* wrap은 메인에 있으므로 cardWarp으로 수정 */
+    margin-top: 20px;
     display: flex;
     justify-content: center;
 }
