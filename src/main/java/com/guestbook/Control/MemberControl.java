@@ -22,21 +22,21 @@ public class MemberControl {
     private final PasswordEncoder passwordEncoder;
 
     // 로그인 페이지 요청
-    @GetMapping("/signIn")
+    @GetMapping("/login")
     public String loginPage(Model model){
 
         return "member/login";
     }
 
     // 회원가입 페이지 요청
-    @GetMapping("/signUp")
+    @GetMapping("/join")
     public String joinPage(Model model){
         model.addAttribute("signInDto", new signInDto());
         return "member/join";
     }
 
     //회원가입 요청(저장)
-    @PostMapping("/signUp")
+    @PostMapping("/join")
     public String join(@Valid signInDto signInDto,
                        BindingResult bindingResult, Model model){
         if( bindingResult.hasErrors() ){ // 유효하지 않은 값 존재
@@ -52,7 +52,7 @@ public class MemberControl {
             return "member/join";
         }
 
-        return "redirect:/member/signIn";
+        return "redirect:/member/join";
     }
 
 //    // 로그인 실패 - 아이디나 비밀번호 틀린경우
