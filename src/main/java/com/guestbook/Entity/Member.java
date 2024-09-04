@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter @Setter
-@Table(name="project_member ")
+@Table(name="project_member")
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,5 +26,4 @@ public class Member {
 
     @Enumerated(EnumType.STRING)
     private Role role;
-
 }

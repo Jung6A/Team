@@ -16,10 +16,7 @@ public class MemberImg {
     @Column(name="member_img_id")
     private long id;
 
-    private String userId;
-    private String password;
-    private String email;
-
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    private long memberId; //어느 유저의 프로필 사진인지
+    
+    //나중에 이미지 주소 관련 추가
 }

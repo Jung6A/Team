@@ -1,6 +1,5 @@
 package com.guestbook.Entity;
 
-import com.guestbook.constant.Role;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,14 +12,14 @@ import javax.persistence.*;
 public class Guestbook {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    @Column(name="member_id")
+    @Column(name="guestbook_id")
     private long id;
 
-    private String userId;
-    private String password;
-    private String email;
-
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    private String userId; //받는 사람. 누구의 방명록에 쓰였는지
+    
+    private String writer; //작성자
+    private String content; //내용
+    
+    //방명록 받는 사람, 작성자, 내용
 }
 
