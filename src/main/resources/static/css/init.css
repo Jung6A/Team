@@ -15,18 +15,19 @@ a:hover{
 }
 #wrap{
     width: 80%;
-    margin: 0 auto;
+    margin: 40px auto;
     position: relative;
-    border-left: 1px solid lightgray;
-    border-right: 1px solid lightgray;
+    border: 1px solid orange;
+    border-radius: 10px;
+    overflow: hidden;
 }
-/* header 스타일 */
+/* header 영역 */
 #header{
     padding: 15px 0;
     position: sticky;
     top: 0;
     background: white;
-    border-bottom: 1px solid lightgray;
+    border-bottom: 1px solid orange;
     z-index: 100;
 }
 #nav{
@@ -38,10 +39,21 @@ a:hover{
     width: 80%;
     text-align: center;
 }
-#nav #menu{
-    width: 10%;
+#nav .menu{
+    width: 20%;
+    text-align: right;
+    padding-right: 15px;
 }
-/* footer 스타일 */
+.menu a{
+    padding: 5px;
+}
+#logo a{
+    color: orange;
+}
+#logo a:hover{
+    color: peachpuff;
+}
+/* footer 영역 */
 #footer{
     display: flex;
     align-items: center;
@@ -54,7 +66,8 @@ a:hover{
     color: white;
     text-align: center;
 }
-/* 메인 */
+/* 메인 화면 */
 #main{
     border: 0;
+    padding: 30px;
 }
