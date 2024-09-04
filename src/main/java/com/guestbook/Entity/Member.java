@@ -32,4 +32,6 @@ public class Member {
     private LocalDateTime regTime; //회원가입 날짜와 시간 저장
     private LocalDateTime updateTime; // 회원 정보 수정 날짜오 시간 저장
 
+    private String name;
+
 }
