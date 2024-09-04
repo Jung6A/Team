@@ -17,7 +17,7 @@ body {
 
 /* 헤더 스타일링 */
 #header {
-    position: fixed;
+    position: sticky; /* fixed로 하면 화면 위가 가려서 안 보임. sticky로 수정 */
     top: 0;
     width: 100%;
     background-color: #fff;
@@ -44,23 +44,23 @@ body {
     text-decoration: none;
 }
 
-#menu {
+.menu {
     display: flex;
     gap: 20px; /* 로그인과 회원가입 간의 간격 */
 }
 
-#menu a {
+.menu a {
     font-size: 16px;
     color: #007bff;
     text-decoration: none;
 }
 
-#menu a:hover {
+.menu a:hover {
     color: #0056b3;
 }
 
 /* 본문 스타일링 */
-#wrap {
+#cardWrap {
     margin-top: 100px; /* 헤더 아래 여백 확보 */
     width: 100%;
     max-width: 1200px;
