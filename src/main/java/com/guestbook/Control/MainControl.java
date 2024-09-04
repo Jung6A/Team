@@ -12,4 +12,6 @@ public class MainControl {
     public String main() {
         return "index";
     }
+
+    ....
 }
