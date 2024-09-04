@@ -3,10 +3,26 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <div th:fragment="header" id="header">
     <div id="nav">
-        <div id="logo"><a href="/">서비스 이름</a></div>
-        <div id="menu">
-            <a href="/member/signIn">로그인</a>
-            <a href="/member/join">회원가입</a>
+        <div id="logo">
+            <a href="/">
+                <i class="fa-solid fa-stroopwafel" aria-hidden="true"></i> 추억의 싸이월드
+            </a>
+        </div>
+        <div class="menu" sec:authorize="isAnonymous()">
+            <a href="/login">
+                <i class="fa-solid fa-utensils" aria-hidden="true"></i> 로그인
+            </a>
+            <a href="/join">
+                <i class="fa-solid fa-mug-saucer" aria-hidden="true"></i> 회원가입
+            </a>
+        </div>
+        <div class="menu" sec:authorize="isAuthenticated()">
+            <a href="/guest/{id}">
+                <i class="fa-solid fa-cookie-bite"></i> 내 방명록
+            </a>
+            <a href="/logout">
+                <i class="fa-solid fa-wine-glass-empty"></i> 로그아웃
+            </a>
         </div>
     </div>
 </div>

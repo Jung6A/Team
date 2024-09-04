@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class MemberImg {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    @Column(name="member_id")
+    @Column(name="member_img_id")
     private long id;
 
     private String userId;
@@ -23,4 +23,3 @@ public class MemberImg {
     @Enumerated(EnumType.STRING)
     private Role role;
 }
-
