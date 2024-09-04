@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class Guestbook {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    @Column(name="guestbook_id")
+    @Column(name="member_id")
     private long id;
 
     private String userId;
@@ -23,3 +23,4 @@ public class Guestbook {
     @Enumerated(EnumType.STRING)
     private Role role;
 }
+

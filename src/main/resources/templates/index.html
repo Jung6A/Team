@@ -6,13 +6,50 @@
     <meta charset="UTF-8">
     <title layout:fragment="title">메인</title>
 
-    <th:block layout:fragment="css"></th:block>
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" href="/css/init.css">
+    </th:block>
     <th:block layout:fragment="script"></th:block>
 </head>
 <body>
-<div layout:fragment="main" id="main">
-    <div id="profCard">
-        <div class="card">회원 프로필용 (나중에 th:each를 걸어야 함 css로 그리드 하면 될듯)</div>
+<div layout:fragment="main" id="main" th:object="${memberForm}">
+    <div id="wrap">
+        <div id="top_Menu">
+            <div class="main_Box">
+                <div class="user_proF_Box">
+                    <div class="user_proF_Detail">프로필 사진</div>
+                    <a ref="">회원정보</a>
+                </div>
+                <div class="user_main">
+                    <h3>이름</h3>
+                    <h3>이메일</h3>
+                </div>
+                <div class="user_proF_Box">
+                    <div class="user_proF_Detail">프로필 사진</div>
+                    <a ref="">회원정보</a>
+                </div>
+                <div class="user_main">
+                    <h3>이름</h3>
+                    <h3>이메일</h3>
+                </div>
+                <div class="user_proF_Box">
+                    <div class="user_proF_Detail">프로필 사진</div>
+                    <a ref="">회원정보</a>
+                </div>
+                <div class="user_main">
+                    <h3>이름</h3>
+                    <h3>이메일</h3>
+                </div>
+                <div class="user_proF_Box">
+                    <div class="user_proF_Detail">프로필 사진</div>
+                    <a ref="">회원정보</a>
+                </div>
+                <div class="user_main">
+                    <h3>이름</h3>
+                    <h3>이메일</h3>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 </body>
