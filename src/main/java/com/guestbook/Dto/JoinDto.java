@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 
 @Getter
 @Setter
-public class signInDto {
+public class JoinDto {
     private Long id;
     @NotBlank(message = "아이디는 필수 입니다.")
     private String userId;
