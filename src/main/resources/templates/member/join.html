@@ -2,15 +2,56 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragment/main}">
+<head>
+    <meta charset="UTF-8">
+    <title layout:fragment="title">회원가입</title>
 
-<meta charset="UTF-8">
-<title layout:fragment="title">회원가입</title>
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" href="/css/join.css">
+    </th:block>
+    <th:block layout:fragment="script">
+        <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+        <!-- jQuery를 사용하는 코드가 없는 경우, 제거해도 무방합니다 -->
+        <script th:inline="javascript">
 
-<th:block layout:fragment="css">
-    <link rel="stylesheet" href="/css/join.css">
-</th:block>
-<th:block layout:fragment="script"></th:block>
+$(function() {
+    $('#profileImage').on('change', function(event) {
 
+
+        var file = event.target.files[0];
+        if (file) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                // 새로운 이미지 미리보기 요소를 생성합니다.
+                var img = $('<img>').attr('src', e.target.result)
+                    .css({
+                        'max-width': '100%',
+                        'max-height': '200px',
+                        'margin-top': '10px',
+                        'border': '1px solid #ccc',
+                        'padding': '5px'
+                    });
+                // 기존 미리보기 이미지 요소가 있을 경우 제거
+                $('#imagePreview').empty();
+                // 미리보기 이미지를 #imagePreview div에 추가합니다.
+                $('#imagePreview').append(img);
+
+            };
+
+
+            reader.readAsDataURL(file);
+        }
+    });
+});
+
+
+
+        </script>
+    </th:block>
+</head>
+
+<body>
 <div layout:fragment="main" id="main">
     <div id="joinWrap">
         <div id="joinForm">
@@ -47,6 +88,8 @@
                     <div class="inputField">
                         <label for="profileImage">프로필 이미지</label>
                         <input type="file" id="profileImage" name="profileImage" class="formInput" accept="image/*">
+                        <!-- 이미지 미리보기 표시 -->
+                        <div id="imagePreview" class="imagePreview"></div>
                     </div>
                     <!-- 이름도 필요 없을 것 같아서 지움 -->
                     <div class="joinBt">
@@ -57,4 +100,8 @@
         </div>
     </div>
 </div>
+</body>
+
+
+
 </html>
