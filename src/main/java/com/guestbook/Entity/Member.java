@@ -22,14 +22,11 @@ public class Member {
     private String userId;
     private String name;
     private String password;
-    private String name;
 
     private String profileImagePath;
 
     @Column(unique = true)
     private String email;
-
-    private String profileImagePath;
 
     private Role role;
 
