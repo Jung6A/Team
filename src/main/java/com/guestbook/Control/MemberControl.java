@@ -56,6 +56,7 @@ public class MemberControl {
             }
         }
 
+
         // Member 엔티티 생성 및 파일 경로 설정
         Member member = new Member();
         member.setUserId(joinDto.getUserId());
