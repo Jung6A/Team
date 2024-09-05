@@ -9,10 +9,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
-
 public class SecurityConfig {
     @Autowired
     MemberService memberService;
@@ -24,8 +25,29 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.formLogin().disable();
-        http.csrf().disable();
+
+        http.formLogin()
+                .loginPage("/member/login")
+                .defaultSuccessUrl("/")
+                .usernameParameter("userId")
+                .passwordParameter("password")
+                .failureUrl("/member/login/error")
+                .and()
+                .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
+                .logoutSuccessUrl("/");
+
+        //인가·인증·누구든 접근 허용 주소 설정
+        http.authorizeRequests()
+                .mvcMatchers("/", "/member/**",  "/guest/**").permitAll()
+                .mvcMatchers("/css/**", "/js/**", "/image/**", "/images/**").permitAll()
+                .anyRequest().authenticated();
+
+        http.csrf()
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+
+//        http.formLogin().disable();
+//        http.csrf().disable();
 
         return http.build();
     }

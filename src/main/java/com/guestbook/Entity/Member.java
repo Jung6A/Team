@@ -10,20 +10,24 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter @Setter
-@Table(name="project_member")
+@Table(name="project_member ")
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "member_id")
     private Long id;
 
+
     @Column(unique = true)
     private String userId;
+    private String name;
     private String password;
+
+    private String profileImagePath;
 
     @Column(unique = true)
     private String email;
 
-    @Enumerated(EnumType.STRING)
     private Role role;
+
 }

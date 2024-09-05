@@ -5,13 +5,14 @@ import com.guestbook.constant.Role;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Getter
 @Setter
-public class signInDto {
+public class JoinDto {
     private Long id;
     @NotBlank(message = "아이디는 필수 입니다.")
     private String userId;
@@ -22,24 +23,30 @@ public class signInDto {
     @Size(min=4 , max=12, message="비밀번호는 4~12자리 입니다.")
     private String password;
 
+    private MultipartFile profileImage;
 
+    private String name;
 
     //DTO -> Entity  회원가입 시 동작메서드
     public Member createEntity(PasswordEncoder passwordEncoder){
         Member member = new Member();
+        member.setName( this.name );
         member.setEmail( this.email );
         member.setUserId( this.userId );
         member.setRole(Role.USER);
-        String pw = passwordEncoder.encode( this.password);
-        member.setPassword( pw );
+        String pw = passwordEncoder.encode(this.password);
+        member.setPassword(pw);
         return member;
     }
 
- //    Entity -> DTO
-    public static signInDto of(Member member){
-        signInDto signInDto = new signInDto();
-        signInDto.setEmail(member.getEmail());
-        signInDto.setUserId(member.getUserId());
-        return signInDto;
+    //    Entity -> DTO
+    public static JoinDto of(Member member){
+        JoinDto joinDto = new JoinDto();
+        joinDto.setName( member.getName());
+        joinDto.setEmail(member.getEmail());
+        joinDto.setUserId(member.getUserId());
+        return joinDto;
     }
+
+
 }
