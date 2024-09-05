@@ -19,25 +19,25 @@ import java.io.IOException;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/member")
 public class MemberControl {
-
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
 
     // 로그인 페이지 요청
-    @GetMapping("/member/login")
+    @GetMapping("/login")
     public String loginPage(Model model){
         return "member/login";
     }
 
     // 회원가입 페이지 요청
-    @GetMapping("/member/join")
+    @GetMapping("/join")
     public String joinPage(Model model){
         model.addAttribute("joinDto", new JoinDto());
         return "member/join";
     }
 
-    @PostMapping("/member/join")
+    @PostMapping("/join")
     public String join(@Valid JoinDto joinDto, BindingResult bindingResult, Model model){
         MultipartFile profileImage = joinDto.getProfileImage();
         String profileImagePath = null;
@@ -72,10 +72,10 @@ public class MemberControl {
         try {
             memberService.saveMember(joinDto, passwordEncoder);
         }catch(IllegalStateException e1){
-            bindingResult.rejectValue("userId","error.signInDto", e1.getMessage());
+            bindingResult.rejectValue("userId","error.joinDto", e1.getMessage());
             return "member/join";
         }catch(IllegalArgumentException e2){
-            bindingResult.rejectValue("email","error.signInDto", e2.getMessage());
+            bindingResult.rejectValue("email","error.joinDto", e2.getMessage());
             return "member/join";
         }
 
@@ -83,10 +83,9 @@ public class MemberControl {
     }
 
     // 로그인 실패 - 아이디나 비밀번호 틀린경우
-    @GetMapping("/member/login/error")
+    @GetMapping("/login/error")
     public String loginFail(Model model){
-        model.addAttribute("loginFailMsg",
-                "아이디 또는 비밀번호가 올바르지 않습니다.");
+        model.addAttribute("loginFailMsg","아이디 또는 비밀번호가 올바르지 않습니다.");
         return "member/login";
     }
 }

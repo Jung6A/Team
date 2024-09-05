@@ -16,8 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Transactional
 public class MemberService implements UserDetailsService {
-
-
     private final MemberRepository memberRepository;
 
     //회원 가입폼의 내용을 데이터 베이스에 저장
@@ -29,11 +27,11 @@ public class MemberService implements UserDetailsService {
     }
     private void validUserIdEmail(Member member){
         Member find = memberRepository.findByUserId(member.getUserId());
-        if( find != null){
+        if(find!=null){
             throw new IllegalStateException("이미 가입된 아이디입니다.");
         }
         find = memberRepository.findByEmail(member.getEmail());
-        if( find !=null){
+        if(find!=null){
             throw new IllegalArgumentException("이미 가입된 이메일입니다.");
         }
     }
@@ -41,7 +39,7 @@ public class MemberService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // 로그인시 입력한 아이디로 계정 조회
-        Member member = memberRepository.findByUserId(username);
+        Member member=memberRepository.findByUserId(username);
         if(member == null){
             throw new UsernameNotFoundException(username);
         }

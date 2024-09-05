@@ -20,7 +20,7 @@ public class Member {
 
     @Column(unique = true)
     private String userId;
-    private String name;
+    private String nickName;
     private String password;
 
     private String nickName;
@@ -28,6 +28,8 @@ public class Member {
     private String intro;
 
     private String profileImagePath;
+
+    private String intro;
 
     @Column(unique = true)
     private String email;

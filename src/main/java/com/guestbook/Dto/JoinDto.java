@@ -27,21 +27,18 @@ public class JoinDto {
     @Size(min=4 , max=12, message="비밀번호는 4~12자리 입니다.")
     private String password;
 
+    private MultipartFile profileImage;
+
     private String nickName;
 
     private String intro;
 
-    private MultipartFile profileImage;
-
-    private String name;
-
     //DTO -> Entity  회원가입 시 동작메서드
     public Member createEntity(PasswordEncoder passwordEncoder){
         Member member = new Member();
-        member.setName( this.name );
+        member.setNickName( this.nickName );
         member.setEmail( this.email );
         member.setUserId( this.userId );
-        member.setNickName(this.nickName);
         member.setIntro(this.intro);
         member.setRole(Role.USER);
         String pw = passwordEncoder.encode(this.password);
@@ -52,10 +49,9 @@ public class JoinDto {
     //    Entity -> DTO
     public static JoinDto of(Member member){
         JoinDto joinDto = new JoinDto();
-        joinDto.setName( member.getName());
+        joinDto.setNickName( member.getNickName());
         joinDto.setEmail(member.getEmail());
         joinDto.setUserId(member.getUserId());
-        joinDto.setNickName(member.getNickName());
         joinDto.setIntro(member.getIntro());
         return joinDto;
     }
