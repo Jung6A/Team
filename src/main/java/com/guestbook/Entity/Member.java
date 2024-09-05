@@ -23,13 +23,9 @@ public class Member {
     private String nickName;
     private String password;
 
-    private String nickName;
-
     private String intro;
 
     private String profileImagePath;
-
-    private String intro;
 
     @Column(unique = true)
     private String email;
