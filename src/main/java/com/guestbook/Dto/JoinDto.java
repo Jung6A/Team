@@ -27,7 +27,7 @@ public class JoinDto {
     @Size(min=4 , max=12, message="비밀번호는 4~12자리 입니다.")
     private String password;
 
-    private MultipartFile profileImage;
+    private MultipartFile profileImagePath;
 
     private String nickName;
 

@@ -54,7 +54,6 @@
     <div id="joinWrap">
         <div id="joinForm">
             <form method="post" action="/member/join" th:object="${joinDto}" enctype="multipart/form-data">
-                <!-- 임시로 MemberDto로 바꿔뒀는데 JoinDto로 변경?-->
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                 <div class="formData">
                     <div class="inputField">
