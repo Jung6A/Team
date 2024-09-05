@@ -41,14 +41,14 @@ public class JoinDto {
         return member;
     }
 
- //    Entity -> DTO
-    public static JoinDto of(Member member){
-        JoinDto joinDto = new JoinDto();
-        joinDto.setName( member.getName());
-        joinDto.setEmail(member.getEmail());
-        joinDto.setUserId(member.getUserId());
-        return joinDto;
-    }
+//    Entity -> DTO
+public static JoinDto of(Member member){
+    JoinDto joinDto = new JoinDto();
+    joinDto.setName( member.getName());
+    joinDto.setEmail(member.getEmail());
+    joinDto.setUserId(member.getUserId());
+    return joinDto;
+}
 
 
 }
