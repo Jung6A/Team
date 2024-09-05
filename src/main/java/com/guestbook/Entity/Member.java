@@ -26,6 +26,7 @@ public class Member {
     @Column(unique = true)
     private String email;
 
+    private String profileImagePath;
 
     @Enumerated(EnumType.STRING)
     private Role role;

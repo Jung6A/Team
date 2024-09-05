@@ -5,6 +5,7 @@ import com.guestbook.constant.Role;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -21,6 +22,8 @@ public class JoinDto {
 
     @Size(min=4 , max=12, message="비밀번호는 4~12자리 입니다.")
     private String password;
+
+    private MultipartFile profileImage;
 
     private String name;
 
@@ -39,11 +42,13 @@ public class JoinDto {
     }
 
  //    Entity -> DTO
-    public static signInDto of(Member member){
-        signInDto signInDto = new signInDto();
-        signInDto.setName( member.getName());
-        signInDto.setEmail(member.getEmail());
-        signInDto.setUserId(member.getUserId());
-        return signInDto;
+    public static JoinDto of(Member member){
+        JoinDto joinDto = new JoinDto();
+        joinDto.setName( member.getName());
+        joinDto.setEmail(member.getEmail());
+        joinDto.setUserId(member.getUserId());
+        return joinDto;
     }
+
+
 }
