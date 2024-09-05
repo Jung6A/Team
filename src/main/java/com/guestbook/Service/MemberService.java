@@ -1,12 +1,9 @@
 package com.guestbook.Service;
 
-import com.guestbook.Dto.signInDto;
+import com.guestbook.Dto.JoinDto;
 import com.guestbook.Entity.Member;
 import com.guestbook.Repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,8 +17,8 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     //회원 가입폼의 내용을 데이터 베이스에 저장
-    public void saveMember(signInDto signInDto, PasswordEncoder passwordEncoder){
-        Member member = signInDto.createEntity(passwordEncoder);
+    public void saveMember(JoinDto JoinDto, PasswordEncoder passwordEncoder){
+        Member member = JoinDto.createEntity(passwordEncoder);
         // 아이디와 이메일 중복여부
         validUserIdEmail( member );
         memberRepository.save(member);

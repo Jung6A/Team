@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 
 @Getter
 @Setter
-public class signInDto {
+public class JoinDto {
     private Long id;
     @NotBlank(message = "아이디는 필수 입니다.")
     private String userId;
@@ -39,11 +39,11 @@ public class signInDto {
     }
 
  //    Entity -> DTO
-    public static signInDto of(Member member){
-        signInDto signInDto = new signInDto();
-        signInDto.setName( member.getName());
-        signInDto.setEmail(member.getEmail());
-        signInDto.setUserId(member.getUserId());
-        return signInDto;
+    public static JoinDto of(Member member){
+        JoinDto JoinDto = new JoinDto();
+        JoinDto.setName( member.getName());
+        JoinDto.setEmail(member.getEmail());
+        JoinDto.setUserId(member.getUserId());
+        return JoinDto;
     }
 }
