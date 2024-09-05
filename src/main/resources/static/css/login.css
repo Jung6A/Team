@@ -1,74 +1,87 @@
-#loginWrap{
-    margin:200px auto;
-    width:400px;
-    font-size:30px;
-    font-family: "Nanum Myeongjo", serif;
-}
-.formData{
-    width:100%;
-    position:relative;
+/* login.css */
 
-}
-.formTitle{
-    font-weight:700;
-    text-align:center;
-    padding:30px 0;
-/*    background:#7c4f34;
-    color:ivory;*/
-
-    border-radius:10px
-    margin-bottom:30px;
-}
-.inputField{
-    width:100%;
-
-}
-.inputField input{
-    outline:none;
-    border:0;
-    border:1px solid #7c4f34;
-    border-radius:10px;
-    height:50px; padding:5px 10px;
-    font-size:27px;
-    width:100%
-
-
-}
-.loginBt button{
-    border:0;
-    background:#7c4f34;
-    font-size:28px;
-    font-weight:500;
-    color:ivory;
-    width:100%;
-    border:1px solid #7c4f34;
-    border-radius:10px;
-    padding:10px 0;
-}
-.loginBt button:hover{
-    background:#622d0e;
-    color:ivory;
-}
-.forget{
-    display:flex;
-    justify-content:space-between;
-    padding:20px 0;
-    font-size:22px
-
-}
-.joinLink a{
-    color:#7c4f34;
-    font-size:24px
-
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.forget a:hover{
-    color:#7c4f34;
-    font-size:23px;
+#loginWrap {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    max-width: 400px;
+    width: 100%;
 }
-.joinLink a:hover{
-    color:#622d0e;
-    font-size:25px;
 
+.formTitle {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
 
+.inputField {
+    margin-bottom: 20px;
+}
+
+.inputField input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.inputField input:focus {
+    border-color: #007BFF;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.loginBt {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.loginBt button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.loginBt button:hover {
+    background-color: #0056b3;
+}
+
+.cyworldMemory {
+    margin: 30px 0;
+    font-size: 18px;
+    color: #777;
+    font-style: italic;
+    text-align: center;
+}
+
+.joinLink {
+    text-align: right;
+    margin-top: 10px;
+}
+
+.joinLink a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.joinLink a:hover {
+    text-decoration: underline;
 }

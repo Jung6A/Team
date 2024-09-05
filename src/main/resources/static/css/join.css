@@ -1,163 +1,80 @@
-/* join.css*/
+/* join.css */
 
-#joinWrap{
-    width:700px;
-    margin:0 auto;
-    padding:100px 0;
-    position:relative;
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-#progress{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    column-gap:20px;
-    border-bottom:1px solid #622d0e;
-    padding:10px 0p;
-}
-#progress .stage_arrow{
-    display:none;
-    font-size:20px;
-}
-#progress .stage_b{display:none;}
-#joinForm{
-    display:none;
-    width:100%;
-    padding:50px 100px;
 
+#joinWrap {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    max-width: 400px;
+    width: 100%;
+}
 
+#joinForm {
+    text-align: center;
 }
-#terms{
-    width:100%; padding:30px 100px;
+
+.formData {
+    margin-bottom: 20px;
 }
-#terms h3{
-    padding:15px;
-    border-bottom:3px solid #622d0e;
+
+.inputField {
+    margin-bottom: 20px;
+    text-align: left;
 }
-#terms textarea{
-    width:100%;
-    resize:none;
-    padding:20px;
-    height:150px;
-    border:1px solid #622d0e;
-    line-height:1.6em;
-    overflow:auto;
+
+.inputField label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #333;
 }
-#terms .agree{
-    padding:20px 0;
-    border-bottom:1px solid #622d0e;
-    position:relative;
+
+.formInput {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
 }
-#terms .agree input[type=checkbox]{
-    position:absolute;
-    top:0; left:0;
-    width:0;
-    height:0;
-    outline:0; opacity:0;
-    z-index:-1;
-    overflow:hidden;
+
+.formInput:focus {
+    border-color: #007BFF;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
-#terms .agree input[type=checkbox] + label span{
+
+.fieldError {
     color: red;
+    font-size: 12px;
+    margin-top: 5px;
 }
 
-#terms .agree input[type=checkbox] + label::before{
-    content:"";
-    display:block;
-    position:absolute;
-    top:50%;
-    right:0;
-    transform:translateY(-50%);
-    width:18px; height:18px;
-    border:1px solid #622d0e;
-    background:#fdf2f3;
-    border-radius:50%;
-    text-align:center;
-    cursor:pointer;
-}
-#terms .agree input[type=checkbox]:checked + label::before{
-    background:#622d0e;
-}
-/*  체크박스 이미지 삽입.
-#terms .agree input[type=checkbox]:checked + label::before{
-    background:url(/img/agree.png) no-repeat center;
-    background-size:140%;
-    border: #622d0e;
-}
-*/
-#terms .btn_terms{
-    margin:50px 0;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-}
-#terms .btn_cancel{
-    width:48%;
-    padding:15px 0;
-    border:1px solid #bbb;
-    border-radius:50px;
-    text-align:center;
-    font-size:20px;
-
-}
-#terms .btn_agree{
-    width:48%;
-    padding:15px 0;
-    border:1px solid #bbb;
-    border-radius:50px;
-    text-align:center;
-    font-size:20px;
-    background:#622d0e;
-    color:ivory;
+.joinBt {
+    display: flex;
+    justify-content: center;
 }
 
-#joinForm .inputField{
-    display:flex;
-    flex-wrap:wrap;
-    align-items:center;
-    justify-content:space-between;
-    margin-bottom:15px;
+.joinBt button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
-}
-#joinForm .inputField label{
-    width:25%;
-}
-#joinForm .inputField input{
-    width:75%;
-    font-size:17px;
-    padding:7px 15px;
-    border:0;
-    border-bottom:1px solid #622d0e;
-
-}
-#joinForm .inputField input:not(:placeholder-shown){
-    border-color:black;
-    border-width:2px;
-}
-#joinForm #zipCode{
-    width:20%;
-    margin-right:5%;
-
-}
-#joinForm .btn-zipCode{
-    width:20%; margin-right:30%;
-    background:#622d0e;
-    color:ivory;
-    border:0;
-    border-radius:50px;
-    padding:5px 0;
-    cursor:pointer;
-}
-#joinForm #btn-join{
-    background:#622d0e;
-    color:ivory;
-    border:0;
-    border-radius:50px;
-    width:100%;
-    padding:15px 0;
-    font-size:20px;
-
-}
-#joinForm .joinBt{
-    margin-top:50px;
-
+.joinBt button:hover {
+    background-color: #0056b3;
 }
