@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 public class GuestControl {
 
-    @GetMapping("/guest")
+    @GetMapping("/guest/detail")
     public String guestHome(Model model) {
         return "guestbook/detail";
     }

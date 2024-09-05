@@ -20,13 +20,13 @@ public class Member {
 
     @Column(unique = true)
     private String userId;
-    private String password;
     private String name;
+    private String password;
+
+    private String profileImagePath;
 
     @Column(unique = true)
     private String email;
-
-    private String profileImagePath;
 
     private Role role;
 

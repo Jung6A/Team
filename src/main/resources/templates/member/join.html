@@ -42,10 +42,6 @@
                             <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
                                class="fieldError"></p>
                         </div>
-                        <div class="inputField">
-                            <label for="profileImage">프로필 이미지</label>
-                            <input type="file" id="profileImage" name="profileImage" class="formInput" accept="image/*">
-                        </div>
                         <!-- 이름도 필요 없을 것 같아서 지움 -->
                         <div class="joinBt">
                             <button id="btn-join">회원가입</button>
