@@ -85,7 +85,7 @@
                     </div>
                     <div class="inputField">
                         <label th:for="intro">소개</label>
-                        <input type="textarea" th:field="intro" class="formInput" placeholder="자기 소개&설명을 입력하세요">
+                        <input type="text" th:field="*{intro}" class="formInput" placeholder="자기 소개&설명을 입력하세요">
                     </div>
                     <div class="inputField">
                         <label th:for="email">이메일</label>
@@ -95,7 +95,7 @@
                            class="fieldError"></p>
                     </div>
                     <div class="inputField">
-                        <label for="profileImage">프로필 이미지</label>
+                        <label th:for="profileImage">프로필 이미지</label>
                         <input type="file" id="profileImage" name="profileImage" class="formInput" accept="image/*">
                         <!-- 이미지 미리보기 표시 -->
                         <div id="imagePreview" class="imagePreview"></div>
