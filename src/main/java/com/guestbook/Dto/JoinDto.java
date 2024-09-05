@@ -27,8 +27,6 @@ public class JoinDto {
 
     private String name;
 
-
-
     //DTO -> Entity  회원가입 시 동작메서드
     public Member createEntity(PasswordEncoder passwordEncoder){
         Member member = new Member();
@@ -36,19 +34,19 @@ public class JoinDto {
         member.setEmail( this.email );
         member.setUserId( this.userId );
         member.setRole(Role.USER);
-        String pw = passwordEncoder.encode( this.password);
-        member.setPassword( pw );
+        String pw = passwordEncoder.encode(this.password);
+        member.setPassword(pw);
         return member;
     }
 
-//    Entity -> DTO
-public static JoinDto of(Member member){
-    JoinDto joinDto = new JoinDto();
-    joinDto.setName( member.getName());
-    joinDto.setEmail(member.getEmail());
-    joinDto.setUserId(member.getUserId());
-    return joinDto;
-}
+    //    Entity -> DTO
+    public static JoinDto of(Member member){
+        JoinDto joinDto = new JoinDto();
+        joinDto.setName( member.getName());
+        joinDto.setEmail(member.getEmail());
+        joinDto.setUserId(member.getUserId());
+        return joinDto;
+    }
 
 
 }
