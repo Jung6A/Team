@@ -1,0 +1,81 @@
+/* login.css */
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#loginWrap {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    max-width: 400px;
+    width: 100%;
+}
+
+.formTitle {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.inputField {
+    margin-bottom: 20px;
+}
+
+.inputField input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.inputField input:focus {
+    border-color: #007BFF;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.loginBt {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.loginBt button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.loginBt button:hover {
+    background-color: #0056b3;
+}
+
+
+
+.joinLink {
+    text-align: right;
+    margin-top: 10px;
+}
+
+.joinLink a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.joinLink a:hover {
+    text-decoration: underline;
+}
