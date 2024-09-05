@@ -27,6 +27,10 @@ public class JoinDto {
     @Size(min=4 , max=12, message="비밀번호는 4~12자리 입니다.")
     private String password;
 
+    private String nickName;
+
+    private String intro;
+
     private MultipartFile profileImage;
 
     private String name;
@@ -37,6 +41,8 @@ public class JoinDto {
         member.setName( this.name );
         member.setEmail( this.email );
         member.setUserId( this.userId );
+        member.setNickName(this.nickName);
+        member.setIntro(this.intro);
         member.setRole(Role.USER);
         String pw = passwordEncoder.encode(this.password);
         member.setPassword(pw);
@@ -49,6 +55,8 @@ public class JoinDto {
         joinDto.setName( member.getName());
         joinDto.setEmail(member.getEmail());
         joinDto.setUserId(member.getUserId());
+        joinDto.setNickName(member.getNickName());
+        joinDto.setIntro(member.getIntro());
         return joinDto;
     }
 

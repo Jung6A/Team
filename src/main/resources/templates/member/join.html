@@ -79,6 +79,18 @@ $(function() {
                                placeholder="비밀번호 확인, 다시 입력하세요">
                     </div>
                     <div class="inputField">
+                        <label th:for="nickName">닉네임</label>
+                        <input type="text" th:field="*{nickName}" class="formInput"
+                               placeholder="닉네임을 입력하세요">
+                        <p th:if="${#fields.hasErrors('nickName')}" th:errors="*{nickName}"
+                           class="fieldError"></p>
+                    </div>
+                    <div class="inputField">
+                        <label th:for="intro">소개</label>
+                        <input type="textarea" th:field="intro" class="formInput"
+                               placeholder="자기 소개&설명을 입력하세요">
+                    </div>
+                    <div class="inputField">
                         <label th:for="email">이메일</label>
                         <input type="email" th:field="*{email}" class="formInput"
                                placeholder="이메일을 입력하세요">
