@@ -56,13 +56,13 @@ public class MemberControl {
             }
         }
 
+//        // Member 엔티티 생성 및 파일 경로 설정
+//        Member member = new Member();
+//        member.setUserId(joinDto.getUserId());
+//        member.setPassword(joinDto.getPassword());
+//        member.setEmail(joinDto.getEmail());
+//        member.setProfileImagePath(profileImagePath);  // 파일 경로를 엔티티에 저장
 
-        // Member 엔티티 생성 및 파일 경로 설정
-        Member member = new Member();
-        member.setUserId(joinDto.getUserId());
-        member.setPassword(joinDto.getPassword());
-        member.setEmail(joinDto.getEmail());
-        member.setProfileImagePath(profileImagePath);  // 파일 경로를 엔티티에 저장
 
 //        // 회원 저장 로직 (예: repository.save(member))
 //        MemberRepository.save(member);
