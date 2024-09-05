@@ -7,12 +7,16 @@ import lombok.Setter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Getter
 @Setter
+
 public class JoinDto {
+
     private Long id;
     @NotBlank(message = "아이디는 필수 입니다.")
     private String userId;
