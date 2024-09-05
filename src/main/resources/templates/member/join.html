@@ -12,7 +12,7 @@
     <div layout:fragment="main" id="main">
         <div id="joinWrap">
             <div id="joinForm">
-                <form method="post" action="/join" th:object="${MemberDto}">
+                <form method="post" action="/join" th:object="${joinDto}" enctype="multipart/form-data">
                     <!-- 임시로 MemberDto로 바꿔뒀는데 JoinDto로 변경?-->
 <!--                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">-->
                     <div class="formData">
@@ -41,6 +41,11 @@
                                    placeholder="이메일을 입력하세요">
                             <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
                                class="fieldError"></p>
+                        </div>
+                        <!--사용자 프로필 사진 선택 -->
+                        <div class="inputField">
+                            <label th:for="profileImage">프로필 사진</label>
+                            <input type="file" id="profileImage" name="profileImage" class="formInput" accept="image/*">
                         </div>
                         <!-- 이름도 필요 없을 것 같아서 지움 -->
                         <div class="joinBt">

@@ -5,6 +5,7 @@ import com.guestbook.constant.Role;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -24,6 +25,7 @@ public class JoinDto {
 
     private String name;
 
+    private MultipartFile profileImage;
 
 
     //DTO -> Entity  회원가입 시 동작메서드
@@ -35,6 +37,7 @@ public class JoinDto {
         member.setRole(Role.USER);
         String pw = passwordEncoder.encode( this.password);
         member.setPassword( pw );
+
         return member;
     }
 
@@ -44,6 +47,7 @@ public class JoinDto {
         JoinDto.setName( member.getName());
         JoinDto.setEmail(member.getEmail());
         JoinDto.setUserId(member.getUserId());
+
         return JoinDto;
     }
 }
