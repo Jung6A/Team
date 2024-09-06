@@ -39,22 +39,23 @@ public class MemberControl {
 
     @PostMapping("/join")
     public String join(@Valid JoinDto joinDto, BindingResult bindingResult, Model model){
-        String profileImage = joinDto.getProfileImagePath();
+        MultipartFile profileImage = joinDto.getProfileImagePath();
         String profileImagePath = null;
 
-//        if (profileImage != null && !profileImage.isEmpty()) {
-//            // 파일 이름과 저장 경로 설정
-//            String fileName = profileImage;
-//            String savePath = "path/to/save/" + fileName;
-//
-//            // 파일을 저장
-//            try {
-//                profileImage.transferTo(new File(savePath));
-//                profileImagePath = savePath;  // 저장한 경로를 엔티티에 저장할 수 있도록 준비
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
+        if (profileImage != null && !profileImage.isEmpty()) {
+            // 파일 이름과 저장 경로 설정
+            String fileName = profileImage.getOriginalFilename();
+            String savePath = "path/to/save/" + fileName;
+
+            // 파일을 저장
+            try {
+                profileImage.transferTo(new File(savePath));
+                profileImagePath = savePath;  // 저장한 경로를 엔티티에 저장할 수 있도록 준비
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
 
         // Member 엔티티 생성 및 파일 경로 설정
 //        Member member = new Member();
@@ -62,10 +63,8 @@ public class MemberControl {
 //        member.setPassword(joinDto.getPassword());
 //        member.setEmail(joinDto.getEmail());
 //        member.setProfileImagePath(profileImagePath);  // 파일 경로를 엔티티에 저장
-
 //        // 회원 저장 로직 (예: repository.save(member))
 //        MemberRepository.save(member);
-
         if( bindingResult.hasErrors() ){ // 유효하지 않은 값 존재
             return "member/join";
         }
@@ -78,7 +77,6 @@ public class MemberControl {
             bindingResult.rejectValue("email","error.joinDto", e2.getMessage());
             return "member/join";
         }
-
         return "redirect:/join";
     }
 
