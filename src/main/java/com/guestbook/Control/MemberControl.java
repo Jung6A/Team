@@ -45,7 +45,7 @@ public class MemberControl {
         if (profileImage != null && !profileImage.isEmpty()) {
             // 파일 이름과 저장 경로 설정
             String fileName = profileImage.getOriginalFilename();
-            String savePath = "path/to/save/" + fileName;
+            String savePath = "C:\\guestbook/" + fileName;
 
             // 파일을 저장
             try {
