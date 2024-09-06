@@ -8,15 +8,20 @@
                 <i class="fa-solid fa-stroopwafel" aria-hidden="true"></i> 추억의 싸이월드
             </a>
         </div>
+        <!-- 비로그인 상태일 때만 표시 -->
         <div class="menu" sec:authorize="isAnonymous()">
             <a href="/member/login">
                 <i class="fa-solid fa-utensils" aria-hidden="true"></i> 로그인
             </a>
             <a href="/member/join">
                 <i class="fa-solid fa-mug-saucer" aria-hidden="true"></i> 회원가입
+
             </a>
         </div>
+        <!-- 로그인 상태일 때만 표시 -->
         <div class="menu" sec:authorize="isAuthenticated()">
+            <!-- 로그인된 유저의 닉네임 표시 -->
+            <span style="color: blue; font-weight: bold;" th:text="${#authentication.name}"></span> <!-- 유저 닉네임 -->
             <a href="/guest/detail">
                 <i class="fa-solid fa-cookie-bite"></i> 내 방명록
             </a>
