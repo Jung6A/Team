@@ -4,6 +4,7 @@ import com.guestbook.Dto.JoinDto;
 import com.guestbook.Entity.Member;
 import com.guestbook.Repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,12 +12,38 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+import org.thymeleaf.util.StringUtils;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class MemberService implements UserDetailsService {
     private final MemberRepository memberRepository;
+
+    @Value("${itemImgPath}")
+    private String imgPath;
+
+
+    private final FileService fileService;
+    private final MemberRepository itemImgRepository;
+
+    public void saveItemImg(Member member, MultipartFile multipartFile) throws Exception {
+        String originalName = multipartFile.getOriginalFilename();// 이미지원본이름
+        String profileImagePath="";
+        String profileImageName="";
+        // 파일 업로드
+//        if( !StringUtils.isEmpty( originalName )){// 업로드 한 원본 이미지이름 존재여부
+//            profileImageName = fileService.uploadFile(imgPath,
+//                    originalName, multipartFile.getBytes());
+//            profileImagePath = "/images/"+profileImageName; // 웹에 사용할 이미지 경로
+//        }
+        member.setProfileImagePath(profileImagePath);
+        member.setProfileImageName( profileImageName );
+
+        itemImgRepository.save(member); // ItemImg 엔티티 객체를 저장
+    }
+
 
     //회원 가입폼의 내용을 데이터 베이스에 저장
     public void saveMember(JoinDto JoinDto, PasswordEncoder passwordEncoder){

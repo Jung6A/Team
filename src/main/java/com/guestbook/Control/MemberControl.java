@@ -39,22 +39,22 @@ public class MemberControl {
 
     @PostMapping("/join")
     public String join(@Valid JoinDto joinDto, BindingResult bindingResult, Model model){
-        MultipartFile profileImage = joinDto.getProfileImagePath();
+        String profileImage = joinDto.getProfileImagePath();
         String profileImagePath = null;
 
-        if (profileImage != null && !profileImage.isEmpty()) {
-            // 파일 이름과 저장 경로 설정
-            String fileName = profileImage.getOriginalFilename();
-            String savePath = "path/to/save/" + fileName;
-
-            // 파일을 저장
-            try {
-                profileImage.transferTo(new File(savePath));
-                profileImagePath = savePath;  // 저장한 경로를 엔티티에 저장할 수 있도록 준비
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+//        if (profileImage != null && !profileImage.isEmpty()) {
+//            // 파일 이름과 저장 경로 설정
+//            String fileName = profileImage;
+//            String savePath = "path/to/save/" + fileName;
+//
+//            // 파일을 저장
+//            try {
+//                profileImage.transferTo(new File(savePath));
+//                profileImagePath = savePath;  // 저장한 경로를 엔티티에 저장할 수 있도록 준비
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
 
         // Member 엔티티 생성 및 파일 경로 설정
 //        Member member = new Member();

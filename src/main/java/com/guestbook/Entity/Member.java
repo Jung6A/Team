@@ -26,6 +26,7 @@ public class Member {
     private String intro;
 
     private String profileImagePath;
+    private String profileImageName;
 
     @Column(unique = true)
     private String email;
