@@ -13,8 +13,7 @@ import org.thymeleaf.util.StringUtils;
 @RequiredArgsConstructor
 @Transactional
 public class ProfileImgService {
-
-    @Value("${itemImgPath}")
+//    @Value("${profileImagePath}")
     private String imgPath;
     private final FileService fileService;
     private final ProfileImgRepository itemImgRepository;
