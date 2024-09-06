@@ -4,7 +4,10 @@
     padding: 0;
     box-sizing: border-box;
 }
-
+a{
+    text-decoration: none;
+    color: inherit;
+}
 #wrap { /* 헤더에는 body가 없어서 감싸고 있는 div(id="wrap")으로 수정. display 수정은 뭔가 꼬이길래 일단 주석 처리함 */
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -43,7 +46,6 @@
     font-size: 24px;
     font-weight: bold;
     color: #333;
-    text-decoration: none;
 }
 
 /* menu는 id가 아니라 class라 수정 */
@@ -55,7 +57,6 @@
 .menu a {
     font-size: 16px;
     color: #007bff;
-    text-decoration: none;
 }
 
 .menu a:hover {
@@ -87,8 +88,20 @@
     overflow: hidden;
 }
 
+.user_proF_Box{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .user_proF_Detail {
     background-color: #f0f0f0;
     padding: 50px;
     margin-bottom: 10px;
+    height: 150px;
+    width: 150px;
+}
+
+.user_proF_Text{
+    width:
 }
