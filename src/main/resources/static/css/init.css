@@ -77,6 +77,8 @@
     padding: 20px;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 /* 레이아웃 수정 */
