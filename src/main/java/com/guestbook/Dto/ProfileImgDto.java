@@ -12,6 +12,7 @@ public class ProfileImgDto {
     private String imgName;
     private String imgUrl;
     private String OriginalName; //이미지 원본 이름
+    private String repImgYn;
 
     private static ModelMapper mapper=new ModelMapper();
 
