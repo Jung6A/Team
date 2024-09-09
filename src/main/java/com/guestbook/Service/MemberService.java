@@ -2,7 +2,6 @@ package com.guestbook.Service;
 
 import com.guestbook.Dto.JoinDto;
 import com.guestbook.Entity.Member;
-import com.guestbook.Entity.ProfileImg;
 import com.guestbook.Repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,8 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
+import org.thymeleaf.util.StringUtils;
 
 @Service
 @RequiredArgsConstructor
@@ -26,63 +24,65 @@ public class MemberService implements UserDetailsService {
     @Value("${itemImgPath}")
     private String imgPath;
 
-
     private final FileService fileService;
-    private final MemberRepository itemImgRepository;
 
+    // 이미지 파일 저장 및 경로 설정
     public void saveItemImg(Member member, MultipartFile multipartFile) throws Exception {
-        String originalName = multipartFile.getOriginalFilename();// 이미지원본이름
-        String profileImagePath="";
-        String profileImageName="";
-        // 파일 업로드
-//        if( !StringUtils.isEmpty( originalName )){// 업로드 한 원본 이미지이름 존재여부
-//            profileImageName = fileService.uploadFile(imgPath,
-//                    originalName, multipartFile.getBytes());
-//            profileImagePath = "/images/"+profileImageName; // 웹에 사용할 이미지 경로
-//        }
-        member.setProfileImagePath(profileImagePath);
-        member.setProfileImageName( profileImageName );
+        String originalName = multipartFile.getOriginalFilename(); // 이미지 원본 이름
+        String profileImagePath = "";
+        String profileImageName = "";
 
-        itemImgRepository.save(member); // ItemImg 엔티티 객체를 저장
+        if (!StringUtils.isEmpty(originalName)) { // 원본 이미지 이름이 존재할 때
+            profileImageName = fileService.uploadFile(imgPath, originalName, multipartFile.getBytes());
+            if (profileImageName != null) {
+                profileImagePath = "/images/" + profileImageName; // 웹에서 사용할 이미지 경로
+                member.setProfileImagePath(profileImagePath);
+                member.setProfileImageName(profileImageName);
+            } else {
+                throw new IllegalStateException("파일 업로드 실패");
+            }
+        }
+
+        memberRepository.save(member); // Member 엔티티 저장
     }
 
+    // 회원 가입 폼의 내용을 데이터베이스에 저장
+    public void saveMember(JoinDto joinDto, PasswordEncoder passwordEncoder) {
+        Member member = joinDto.createEntity(passwordEncoder);
 
-    //회원 가입폼의 내용을 데이터 베이스에 저장
-    public void saveMember(JoinDto JoinDto, PasswordEncoder passwordEncoder){
-        Member member = JoinDto.createEntity(passwordEncoder);
-        // 아이디와 이메일 중복여부
+        // 아이디와 이메일 중복 여부 검사
+        validUserIdEmail(member);
 
-        validUserIdEmail( member );
-        memberRepository.save(member);
-
-//        //이미지 업로드 및 데이터베이스 저장
-//
-//        ProfileImg profileImg =new ProfileImg();
-//        profileImg.setMember(member);
-//        //업로드 및 데이터베이스 저장 위한 itemimgservice 클래스 메서드 호출
-//        ProfileImgService.saveMemberImg(profileImg, multipartFile);
-
+        // 이미지 파일 처리
+        MultipartFile profileImage = joinDto.getProfileImagePath();
+        if (profileImage != null && !profileImage.isEmpty()) {
+            try {
+                saveItemImg(member, profileImage);
+            } catch (Exception e) {
+                throw new IllegalStateException("이미지 파일 처리 오류", e);
+            }
+        } else {
+            memberRepository.save(member); // 이미지가 없을 경우에도 회원 정보 저장
+        }
     }
-    private void validUserIdEmail(Member member){
-        Member find = memberRepository.findByUserId(member.getUserId());
-        if(find!=null){
+
+    private void validUserIdEmail(Member member) {
+        if (memberRepository.findByUserId(member.getUserId()) != null) {
             throw new IllegalStateException("이미 가입된 아이디입니다.");
         }
-        find = memberRepository.findByEmail(member.getEmail());
-        if(find!=null){
+        if (memberRepository.findByEmail(member.getEmail()) != null) {
             throw new IllegalArgumentException("이미 가입된 이메일입니다.");
         }
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // 로그인시 입력한 아이디로 계정 조회
-        Member member=memberRepository.findByUserId(username);
-        if(member == null){
+        // 로그인 시 입력한 아이디로 계정 조회
+        Member member = memberRepository.findByUserId(username);
+        if (member == null) {
             throw new UsernameNotFoundException(username);
         }
         // 입력한 비밀번호와 조회한 계정 비밀번호 비교를 위해 반환
-        // User 는 org.springframework.security.core.userdetails.User 걸로 import
         return User.builder()
                 .username(member.getUserId())
                 .password(member.getPassword())
