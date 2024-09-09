@@ -12,6 +12,7 @@ import java.util.UUID;
 import java.util.logging.Logger;
 
 @Service
+@Log
 public class FileService {
     private static final Logger logger = Logger.getLogger(FileService.class.getName());
 
@@ -26,8 +27,8 @@ public class FileService {
         String ext = originalName.substring(originalName.lastIndexOf("."));
         // UUID로 기본 이름 생성
         String fileName = UUID.randomUUID().toString();
-        // 실제 업로드할 파일 이름 (중복 처리 포함)
-        String saveName = getUniqueFileName(uploadPath, fileName, ext);
+        // 실제 업로드할 파일 이름 (UUID 포함)
+        String saveName = fileName + ext;
 
         // 파일 저장 경로
         String fileUploadUrl = uploadPath + "/" + saveName;
@@ -41,19 +42,5 @@ public class FileService {
         }
 
         return saveName;
-    }
-
-    private String getUniqueFileName(String uploadPath, String fileName, String fileExtension) {
-        int count = 1;
-        String newFileName = fileName + fileExtension;
-        File file = new File(uploadPath, newFileName);
-
-        while (file.exists()) {
-            newFileName = fileName + "(" + count + ")" + fileExtension;
-            file = new File(uploadPath, newFileName);
-            count++;
-        }
-
-        return newFileName;
     }
 }
