@@ -22,7 +22,7 @@
         <div class="menu" sec:authorize="isAuthenticated()">
             <!-- 로그인된 유저의 닉네임 표시 -->
             <span style="color: blue; font-weight: bold;" th:text="${#authentication.name}"></span> <!-- 유저 닉네임 -->
-            <a href="/guest/detail">
+            <a th:href="'/guest/'+${#authentication.name}"> <!-- 내 방명록 링크가 로그인한 유저마다 달라지도록 -->
                 <i class="fa-solid fa-cookie-bite"></i> 내 방명록
             </a>
             <a href="/member/logout">
