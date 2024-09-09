@@ -22,10 +22,10 @@ public class MainControl {
         //메인화면에 이미지에 사용할 이미지들가져오기
         List<ProfileImgDto> mainImgList = profileImgService.getMainImg();
         //슬라이드이미지 아래에  회원 정보 저장
-        //List<ItemForm> itemFormList = itemService.getMainItems();
+        //List<JoinDto> MemberList = itemService.getMember();
 
         model.addAttribute("mainImg", mainImgList);
-        //model.addAttribute("itemList" , itemFormList);
+        //model.addAttribute("memberLists" , MemberList);
 
         return "index";
     }

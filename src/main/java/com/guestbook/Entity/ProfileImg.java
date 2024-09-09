@@ -2,6 +2,7 @@ package com.guestbook.Entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 
@@ -18,7 +19,9 @@ public class ProfileImg {
     private String imgName;
     private String imgUrl;
     private String originalName;
+    private String nickName;
 
+    private String intro;
     private String repImgYn; // 대표이미지 설정
 
     @OneToOne
