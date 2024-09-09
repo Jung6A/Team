@@ -48,7 +48,7 @@ public class MemberService implements UserDetailsService {
 
 
     //회원 가입폼의 내용을 데이터 베이스에 저장
-    public void saveMember(JoinDto JoinDto, PasswordEncoder passwordEncoder, MultipartFile multipartFile){
+    public void saveMember(JoinDto JoinDto, PasswordEncoder passwordEncoder){
         Member member = JoinDto.createEntity(passwordEncoder);
         // 아이디와 이메일 중복여부
 

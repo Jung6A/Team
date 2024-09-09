@@ -40,14 +40,14 @@ public class MemberControl {
     }
 
     @PostMapping("/join")
-    public String join(@Valid JoinDto joinDto, BindingResult bindingResult, Model model, @RequestParam("profileImagePath") List<MultipartFile> multipartFileList){
+    public String join(@Valid JoinDto joinDto, BindingResult bindingResult, Model model){
         MultipartFile profileImage = joinDto.getProfileImagePath();
         String profileImagePath = null;
 
         if (profileImage != null && !profileImage.isEmpty()) {
             // 파일 이름과 저장 경로 설정
             String fileName = profileImage.getOriginalFilename();
-            String savePath = "path/to/save/" + fileName;
+            String savePath = "C:\\guestbook/" + fileName;
 
             // 파일을 저장
             try {
@@ -57,7 +57,6 @@ public class MemberControl {
                 e.printStackTrace();
             }
         }
-
 
         // Member 엔티티 생성 및 파일 경로 설정
 //        Member member = new Member();
