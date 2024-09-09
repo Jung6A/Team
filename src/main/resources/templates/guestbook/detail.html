@@ -16,17 +16,32 @@
     <div layout:fragment="main" id="main">
         <div id="detailWrap">
             <div id="profCard">
-                <div>방명록 주인 프로필 카드 프로필 사진/닉네임/자기소개 구성</div>
+                <div id="profIcon">프로필 사진</div>
+                <div id="profDetail">
+                    <h3>닉네임</h3>
+                    <p>이메일</p>
+                    <p>자기소개</p>
+                </div>
             </div>
             <form method="post" action="/guest/writeComplete" id="inputGuestbook">
                 <!-- 방명록 입력 칸은 로그인 상태에서만 보이도록 수정 다 하면 sec:authorize="isAuthenticated()" 추가 -->
                 <textarea id="introInput" placeholder="방명록을 입력하세요"></textarea>
                 <button id="introBT">작성</button>
             </form>
-            <div>페이징을 할 경우 여기?</div>
+            <div id="page">페이징을 할 경우 여기?</div>
             <div class="guestbook">
-                <div>방명록 작성자의 프로필 사진 / 내용 구성</div>
-                <a><i class="fa-solid fa-bell"></i> 신고</a>
+                <div class="guestContent">
+                    <div class="guestIcon">프로필 사진</div>
+                    <div class="guestBody">방명록 본문</div>
+                </div>
+                <a href="" class="notify"><i class="fa-solid fa-bell"></i> 신고</a>
+            </div>
+            <div class="guestbook">
+                <div class="guestContent">
+                    <div class="guestIcon">프로필 사진</div>
+                    <div class="guestBody">방명록 본문</div>
+                </div>
+                <a href="" class="notify"><i class="fa-solid fa-bell"></i> 신고</a>
             </div>
         </div>
     </div>
