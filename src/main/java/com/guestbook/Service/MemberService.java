@@ -2,6 +2,7 @@ package com.guestbook.Service;
 
 import com.guestbook.Dto.JoinDto;
 import com.guestbook.Entity.Member;
+import com.guestbook.Entity.ProfileImg;
 import com.guestbook.Repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,7 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import org.thymeleaf.util.StringUtils;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -46,11 +48,20 @@ public class MemberService implements UserDetailsService {
 
 
     //회원 가입폼의 내용을 데이터 베이스에 저장
-    public void saveMember(JoinDto JoinDto, PasswordEncoder passwordEncoder){
+    public void saveMember(JoinDto JoinDto, PasswordEncoder passwordEncoder, MultipartFile multipartFile){
         Member member = JoinDto.createEntity(passwordEncoder);
         // 아이디와 이메일 중복여부
+
         validUserIdEmail( member );
         memberRepository.save(member);
+
+//        //이미지 업로드 및 데이터베이스 저장
+//
+//        ProfileImg profileImg =new ProfileImg();
+//        profileImg.setMember(member);
+//        //업로드 및 데이터베이스 저장 위한 itemimgservice 클래스 메서드 호출
+//        ProfileImgService.saveMemberImg(profileImg, multipartFile);
+
     }
     private void validUserIdEmail(Member member){
         Member find = memberRepository.findByUserId(member.getUserId());

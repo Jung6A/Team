@@ -11,11 +11,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -38,7 +40,7 @@ public class MemberControl {
     }
 
     @PostMapping("/join")
-    public String join(@Valid JoinDto joinDto, BindingResult bindingResult, Model model){
+    public String join(@Valid JoinDto joinDto, BindingResult bindingResult, Model model, @RequestParam("profileImagePath") List<MultipartFile> multipartFileList){
         MultipartFile profileImage = joinDto.getProfileImagePath();
         String profileImagePath = null;
 
