@@ -1,5 +1,6 @@
 package com.guestbook.Control;
 
+import com.guestbook.Dto.JoinDto;
 import com.guestbook.Entity.Guestbook;
 import com.guestbook.Entity.Member;
 import com.guestbook.Service.MemberService;
@@ -15,10 +16,11 @@ public class GuestControl {
     private final MemberService memberService;
 
     @GetMapping("/guest/{userId}")
-    public String guestHome(Model model, @PathVariable("userId") String userId) {
+    public String guestHome(@PathVariable("userId") String userId, Model model) {
 
-        model.addAttribute("member", memberService.getMember(userId));
-        model.addAttribute("guestbook", new Guestbook());
+//        JoinDto joinDto=memberService.getMember(userId);
+//
+//        model.addAttribute("member", joinDto);
         return "guestbook/detail";
     }
 }

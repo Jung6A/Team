@@ -1,8 +1,11 @@
 package com.guestbook.Service;
 
 import com.guestbook.Dto.JoinDto;
+import com.guestbook.Dto.ProfileImgDto;
 import com.guestbook.Entity.Member;
+import com.guestbook.Entity.ProfileImg;
 import com.guestbook.Repository.MemberRepository;
+import com.guestbook.Repository.ProfileImgRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.User;
@@ -20,6 +23,7 @@ import org.thymeleaf.util.StringUtils;
 @Transactional
 public class MemberService implements UserDetailsService {
     private final MemberRepository memberRepository;
+//    private final ProfileImgRepository profileImgRepository;
 
     @Value("${itemImgPath}")
     private String imgPath;
@@ -75,11 +79,19 @@ public class MemberService implements UserDetailsService {
         }
     }
 
-    public Member getMember(String userId) {
-        Member member=memberRepository.findByUserId(userId);
-
-        return member;
-    }
+    //멤버 정보 불러오기용인데 잘 안 됨
+//    public JoinDto getMember(String userId) {
+//        Member member=memberRepository.findByUserId(userId);
+//
+//        JoinDto joinDto=getMember(member);
+//        return joinDto;
+//    }
+//
+//    private JoinDto getMember(Member member) {
+//
+//        JoinDto joinDto=JoinDto.of(member);
+//        return joinDto;
+//    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
