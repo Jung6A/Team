@@ -11,6 +11,11 @@
     min-height: 100vh;
 }
 
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
 /* 헤더 스타일링 */
 #header {
     position: sticky;
