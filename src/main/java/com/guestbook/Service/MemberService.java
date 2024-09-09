@@ -1,11 +1,8 @@
 package com.guestbook.Service;
 
 import com.guestbook.Dto.JoinDto;
-import com.guestbook.Dto.ProfileImgDto;
 import com.guestbook.Entity.Member;
-import com.guestbook.Entity.ProfileImg;
 import com.guestbook.Repository.MemberRepository;
-import com.guestbook.Repository.ProfileImgRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.User;
@@ -16,39 +13,19 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import org.thymeleaf.util.StringUtils;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class MemberService implements UserDetailsService {
     private final MemberRepository memberRepository;
-//    private final ProfileImgRepository profileImgRepository;
+    private final FileService fileService;
 
     @Value("${itemImgPath}")
     private String imgPath;
-
-    private final FileService fileService;
-
-    // 이미지 파일 저장 및 경로 설정
-    public void saveItemImg(Member member, MultipartFile multipartFile) throws Exception {
-        String originalName = multipartFile.getOriginalFilename(); // 이미지 원본 이름
-        String profileImagePath = "";
-        String profileImageName = "";
-
-        if (!StringUtils.isEmpty(originalName)) { // 원본 이미지 이름이 존재할 때
-            profileImageName = fileService.uploadFile(imgPath, originalName, multipartFile.getBytes());
-            if (profileImageName != null) {
-                profileImagePath = "/images/" + profileImageName; // 웹에서 사용할 이미지 경로
-                member.setProfileImagePath(profileImagePath);
-                member.setProfileImageName(profileImageName);
-            } else {
-                throw new IllegalStateException("파일 업로드 실패");
-            }
-        }
-
-        memberRepository.save(member); // Member 엔티티 저장
-    }
 
     // 회원 가입 폼의 내용을 데이터베이스에 저장
     public void saveMember(JoinDto joinDto, PasswordEncoder passwordEncoder) {
@@ -57,53 +34,59 @@ public class MemberService implements UserDetailsService {
         // 아이디와 이메일 중복 여부 검사
         validUserIdEmail(member);
 
-        // 이미지 파일 처리
+        // 프로필 이미지 처리
         MultipartFile profileImage = joinDto.getProfileImagePath();
         if (profileImage != null && !profileImage.isEmpty()) {
             try {
-                saveItemImg(member, profileImage);
+                String profileImageName = fileService.uploadFile(imgPath, profileImage.getOriginalFilename(), profileImage.getBytes());
+                member.setProfileImageName(profileImageName);
+                member.setProfileImageUrl("/images/" + profileImageName);
             } catch (Exception e) {
                 throw new IllegalStateException("이미지 파일 처리 오류", e);
             }
-        } else {
-            memberRepository.save(member); // 이미지가 없을 경우에도 회원 정보 저장
         }
+
+        // 회원 정보 저장
+        memberRepository.save(member);
     }
 
     private void validUserIdEmail(Member member) {
+        // 아이디 중복 체크
         if (memberRepository.findByUserId(member.getUserId()) != null) {
             throw new IllegalStateException("이미 가입된 아이디입니다.");
         }
+        // 이메일 중복 체크
         if (memberRepository.findByEmail(member.getEmail()) != null) {
             throw new IllegalArgumentException("이미 가입된 이메일입니다.");
         }
     }
 
-    //멤버 정보 불러오기용인데 잘 안 됨
-//    public JoinDto getMember(String userId) {
-//        Member member=memberRepository.findByUserId(userId);
-//
-//        JoinDto joinDto=getMember(member);
-//        return joinDto;
-//    }
-//
-//    private JoinDto getMember(Member member) {
-//
-//        JoinDto joinDto=JoinDto.of(member);
-//        return joinDto;
-//    }
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // 로그인 시 입력한 아이디로 계정 조회
         Member member = memberRepository.findByUserId(username);
         if (member == null) {
             throw new UsernameNotFoundException(username);
         }
-        // 입력한 비밀번호와 조회한 계정 비밀번호 비교를 위해 반환
         return User.builder()
                 .username(member.getUserId())
                 .password(member.getPassword())
                 .roles(member.getRole().toString()).build();
+    }
+
+    public Member getMember(String userId) {
+        // 회원을 userId로 검색
+        Member member = memberRepository.findByUserId(userId);
+        if (member == null) {
+            throw new UsernameNotFoundException("해당 회원을 찾을 수 없습니다.");
+        }
+        return member;
+    }
+
+    // 모든 회원 정보를 가져오는 메서드 추가
+    public List<JoinDto> getAllMembers() {
+        List<Member> members = memberRepository.findAll();
+        return members.stream()
+                .map(JoinDto::of)
+                .collect(Collectors.toList());
     }
 }

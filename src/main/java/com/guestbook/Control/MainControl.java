@@ -1,9 +1,8 @@
 package com.guestbook.Control;
 
-import com.guestbook.Dto.ProfileImgDto;
-import com.guestbook.Service.ProfileImgService;
+import com.guestbook.Dto.JoinDto;
+import com.guestbook.Service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,18 +13,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MainControl {
 
-    private final ProfileImgService profileImgService;
+    private final MemberService memberService;
 
     @GetMapping("/")
     public String main(Model model) {
 
-        //메인화면에 이미지에 사용할 이미지들가져오기
-        List<ProfileImgDto> mainImgList = profileImgService.getMainImg();
-        //슬라이드이미지 아래에  회원 정보 저장
-        //List<JoinDto> MemberList = itemService.getMember();
+        // 회원 정보를 메인화면에 전달
+        List<JoinDto> memberList = memberService.getAllMembers();
 
-        model.addAttribute("mainImg", mainImgList);
-        //model.addAttribute("memberLists" , MemberList);
+        model.addAttribute("memberLists", memberList);
 
         return "index";
     }

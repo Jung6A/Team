@@ -1,6 +1,5 @@
 package com.guestbook.Control;
 
-import com.guestbook.Dto.JoinDto;
 import com.guestbook.Entity.Guestbook;
 import com.guestbook.Entity.Member;
 import com.guestbook.Service.MemberService;
@@ -16,11 +15,10 @@ public class GuestControl {
     private final MemberService memberService;
 
     @GetMapping("/guest/{userId}")
-    public String guestHome(@PathVariable("userId") String userId, Model model) {
-
-//        JoinDto joinDto=memberService.getMember(userId);
-//
-//        model.addAttribute("member", joinDto);
+    public String guestHome(Model model, @PathVariable("userId") String userId) {
+        Member member = memberService.getMember(userId); // 이제 getMember 메서드를 정상적으로 호출
+        model.addAttribute("member", member);
+        model.addAttribute("guestbook", new Guestbook());
         return "guestbook/detail";
     }
 }
