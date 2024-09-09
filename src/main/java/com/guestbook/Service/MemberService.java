@@ -75,6 +75,12 @@ public class MemberService implements UserDetailsService {
         }
     }
 
+    public Member getMember(String userId) {
+        Member member=memberRepository.findByUserId(userId);
+
+        return member;
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // 로그인 시 입력한 아이디로 계정 조회
