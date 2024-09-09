@@ -1,0 +1,41 @@
+textarea{
+    resize: none;
+}
+#detailWrap{
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    margin: 40px auto;
+    max-width: 1000px;
+    width: 100%;
+}
+
+/* 방명록 주인 프로필 */
+#profCard{
+    border: 1px solid #007bff;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+/* 입력창 */
+#inputGuestbook{
+    width: 100%;
+    height: 100px;
+    display: flex;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+#introInput{
+    width: 80%;
+    outline: none;
+    padding: 10px;
+}
+#introBT{
+    width: 20%;
+}
+.guestbook{
+    margin-top: 20px;
+}
