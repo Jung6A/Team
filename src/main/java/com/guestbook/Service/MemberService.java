@@ -35,7 +35,7 @@ public class MemberService implements UserDetailsService {
         validUserIdEmail(member);
 
         // 프로필 이미지 처리
-        MultipartFile profileImage = joinDto.getProfileImagePath();
+        MultipartFile profileImage = joinDto.getProfileImageUrl();
         if (profileImage != null && !profileImage.isEmpty()) {
             try {
                 String profileImageName = fileService.uploadFile(imgPath, profileImage.getOriginalFilename(), profileImage.getBytes());

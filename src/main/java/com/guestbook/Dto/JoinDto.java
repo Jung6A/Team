@@ -24,7 +24,7 @@ public class JoinDto {
     @Size(min=4 , max=12, message="비밀번호는 4~12자리 입니다.")
     private String password;
 
-    private MultipartFile profileImagePath;  // 프로필 이미지 파일
+    private MultipartFile profileImageUrl;  // 프로필 이미지 파일
 
     // 프로필 이미지 이름은 저장하지 않고, URL만 저장
     // private String profileImageName;  // 불필요한 필드 (주석 처리)
