@@ -8,18 +8,21 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@Table(name="guestbook_detail")
 public class Guestbook {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name="guestbook_id")
     private long id;
 
-    private String userId; //받는 사람. 누구의 방명록에 쓰였는지
-    
-    private String writer; //작성자
-    private String content; //내용
-    
-    //방명록 받는 사람, 작성자, 내용
-}
+    @OneToOne
+    @JoinColumn(name="member_id")
+    private Member member; //방명록 주인
 
+    public static Guestbook createGuestbook(Member member) {
+        Guestbook guestbook =new Guestbook();
+        guestbook.setMember(member);
+
+        return guestbook;
+    }
+}
+//방명록과 방명록 내용 Entity를 분리 (Cart와 CartItem처럼)
