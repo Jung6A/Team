@@ -1,7 +1,9 @@
 package com.guestbook.Service;
 
 import com.guestbook.Dto.JoinDto;
+import com.guestbook.Entity.Guestbook;
 import com.guestbook.Entity.Member;
+import com.guestbook.Repository.GuestRepository;
 import com.guestbook.Repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,8 +23,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Transactional
 public class MemberService implements UserDetailsService {
-
     private final MemberRepository memberRepository;
+    private final GuestRepository guestRepository;
     private final FileService fileService;
 
     @Value("${uploadPath}")
@@ -51,6 +53,10 @@ public class MemberService implements UserDetailsService {
 
         // 회원 정보 저장
         memberRepository.save(member);
+
+        //회원가입 시 회원 전용 방명록 테이블 생성
+        Guestbook guestbook=Guestbook.createGuestbook(member);
+        guestRepository.save(guestbook);
     }
 
     private void validateUserIdEmail(Member member) {
