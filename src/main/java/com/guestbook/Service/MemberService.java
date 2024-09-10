@@ -98,4 +98,14 @@ public class MemberService implements UserDetailsService {
                 .map(JoinDto::of)
                 .collect(Collectors.toList());
     }
+
+    // 회원 정보를 userId로 찾는 메서드 추가
+    public Member findById(String userId) {
+        // 회원을 userId로 검색
+        Member member = memberRepository.findByUserId(userId);
+        if (member == null) {
+            throw new IllegalStateException("해당 회원을 찾을 수 없습니다: " + userId);
+        }
+        return member;
+    }
 }

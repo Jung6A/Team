@@ -1,6 +1,7 @@
 package com.guestbook.Control;
 
 import com.guestbook.Dto.JoinDto;
+import com.guestbook.Entity.Member;
 import com.guestbook.Service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,11 +13,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.util.NoSuchElementException;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/member")
 public class MemberControl {
+
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
 
@@ -46,6 +49,7 @@ public class MemberControl {
             bindingResult.rejectValue("email", "error.joinDto", e2.getMessage());
             return "member/join";
         }
+
         return "redirect:/member/login";
     }
 

@@ -1,76 +1,110 @@
-textarea{
-    resize: none;
-}
-#detailWrap{
+/* 방명록 페이지 스타일 */
+#detailWrap {
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 40px;
-    margin: 40px auto;
-    max-width: 1000px;
+    padding: 20px; /* 줄어든 패딩 */
+    margin: 20px auto; /* 줄어든 마진 */
+    max-width: 600px; /* 화면의 3분의 1 길이로 조정 */
     width: 100%;
+    box-sizing: border-box; /* 패딩과 마진을 포함한 크기 조정 */
 }
 
-/* 방명록 주인 프로필 */
-#profCard{
+/* 사용자 프로필 정보 */
+#profCard {
     border: 1px solid #007bff;
     border-radius: 10px;
     overflow: hidden;
     margin-bottom: 20px;
     padding: 10px;
     display: flex;
+    justify-content: center;
 }
-#profIcon{
-    height: 130px;
-    width: 130px;
-    border: 1px solid gray;
-}
-#profDetail{
-    width: calc(100% - 130px);
-    text-align: center;
+
+/* 프로필 이미지 컨테이너 */
+#profIcon {
+    width: 100px;
+    height: 100px;
+
+    display: flex;
+    justify-content: center;
     align-items: center;
 }
 
-/* 입력창 */
-#inputGuestbook{
-    width: 100%;
+#profIcon img {
+    width: 100px;
     height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+/* 프로필 세부정보 */
+#profDetail {
+    flex: 1;
+    text-align: center;
+}
+
+#profDetail h3, #profDetail p {
+    margin-top: 10px;
+}
+
+/* 방명록 작성 폼 */
+#inputGuestbook {
+    width: 100%;
+    height: 80px; /* 줄어든 높이 */
     display: flex;
     border-radius: 10px;
-    margin-bottom: 30px;
+    margin-bottom: 20px; /* 줄어든 마진 */
 }
-#introInput{
+
+#introInput {
     width: 80%;
-    outline: none;
-    padding: 10px;
+    padding: 8px; /* 줄어든 패딩 */
 }
-#introBT{
+
+#introBT {
     width: 20%;
 }
-.guestbook{
+
+/* 방명록 목록 */
+.guestbook {
     position: relative;
     margin: 10px 0;
     border-top: 1px dotted gray;
 }
-.guestContent{
+
+.guestContent {
     display: flex;
     padding: 10px;
 }
-.guestIcon{
-    width: 100px;
-    height: 100px;
+
+.guestIcon {
+    width: 80px; /* 줄어든 너비 */
+    height: 80px; /* 줄어든 높이 */
     border: 1px solid gray;
 }
-.guestBody{
-    width: calc(100% - 100px);
-    padding: 0 10px;
-    margin-left: 10px;
-    margin-right: 30px;
+
+.guestIcon img {
+    width: 80px; /* 줄어든 너비 */
+    height: 80px; /* 줄어든 높이 */
+    object-fit: cover;
+    border-radius: 50%;
 }
-.notify{
+
+.guestBody {
+    flex: 1;
+    margin-left: 10px;
+    margin-right: 20px; /* 줄어든 마진 */
+}
+
+.notify {
     color: red;
     position: absolute;
     top: 5px;
     right: 0;
     padding: 5px;
+}
+
+#page {
+    margin-top: 20px;
 }

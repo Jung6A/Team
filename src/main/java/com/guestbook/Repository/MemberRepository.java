@@ -12,5 +12,9 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     // 특정 이메일로 멤버 찾기
     Member findByEmail(String email);
 
-    Member findByNickName(String nickName); // 닉네임으로 검색
+    // 특정 닉네임으로 멤버 찾기
+    Member findByNickName(String nickName);
+
+    // 필요 시 회원 삭제 메소드 추가 (기본 제공)
+    // void deleteByUserId(String userId);
 }

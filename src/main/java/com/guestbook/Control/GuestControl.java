@@ -8,6 +8,8 @@ import com.guestbook.Entity.Member;
 import com.guestbook.Service.GuestService;
 import com.guestbook.Service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,12 +22,17 @@ import javax.validation.Valid;
 @Controller
 @RequiredArgsConstructor
 public class GuestControl {
+
     private final MemberService memberService;
     private final GuestService guestService;
 
     @GetMapping("/guest/{userId}")
     public String guestHome(Model model, @PathVariable("userId") String userId) {
-        // 특정 회원의 정보를 가져와서 모델에 추가
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated() || authentication.getPrincipal() instanceof String) {
+            return "redirect:/member/login";
+        }
+
         Member member = memberService.getMember(userId);
         JoinDto joinDto = JoinDto.of(member);
         model.addAttribute("member", joinDto);
