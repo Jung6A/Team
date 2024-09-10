@@ -30,7 +30,7 @@
                         </div>
 
                         <!-- 회원정보 페이지로 이동하는 링크 추가 -->
-                        <a href="/member/${proF.userId}" class="user-info-link">방명록 방문하기</a>
+                        <a th:href="'/guest/'+${proF.userId}" class="user-info-link">방명록 방문하기</a>
                     </div>
                     <div class="user_main">
                         <h3>게시글</h3>
