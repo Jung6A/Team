@@ -21,7 +21,7 @@
                         <div class="user_proF_Detail">
                             <div class="profile-image-container">
                                 <!-- 프로필 이미지 URL을 정확히 설정 -->
-                                <img th:src="@{/guestbook/${proF.profileImageName}}" alt="프로필 이미지" class="profile-image">
+                                <img th:src="@{/guestbook/{fileName}(fileName=${proF.profileImageName})}" alt="프로필 이미지" class="profile-image">
                             </div>
                             <div class="user_proF_Detail_Info">
                                 <div class="user_proF_Detail_Name" th:text="${proF.nickName}"></div>
@@ -30,7 +30,7 @@
                         </div>
 
                         <!-- 회원정보 페이지로 이동하는 링크 추가 -->
-                        <a th:href="@{/member/{userId}(userId=${proF.userId})}" class="user-info-link">방명록 방문하기</a>
+                        <a href="/member/${proF.userId}" class="user-info-link">방명록 방문하기</a>
                     </div>
                     <div class="user_main">
                         <h3>게시글</h3>
@@ -40,5 +40,6 @@
             </div>
         </div>
     </div>
+</div>
 </body>
 </html>

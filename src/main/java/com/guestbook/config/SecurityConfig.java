@@ -18,46 +18,47 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Autowired
-    private MemberService memberService;
-
     private final UserDetailsService userDetailsService;
     private final PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public SecurityConfig(UserDetailsService userDetailsService, @Lazy PasswordEncoder passwordEncoder) {
+        this.userDetailsService = userDetailsService;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    public SecurityConfig(UserDetailsService userDetailsService, @Lazy PasswordEncoder passwordEncoder) {
-        this.userDetailsService = userDetailsService;
-        this.passwordEncoder = passwordEncoder;
-    }
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests()
+                .mvcMatchers("/", "/member/**", "/guestbook/**").permitAll() // 공개 URL 설정
+                .mvcMatchers("/css/**", "/js/**").permitAll() // 정적 자원 공개 설정
+                .anyRequest().authenticated() // 나머지 요청은 인증 필요
+                .and()
+                .formLogin()
+                .loginPage("/member/login")
+                .defaultSuccessUrl("/") // 로그인 성공 시 이동할 URL
+                .usernameParameter("userId") // 폼 필드 이름을 userId로 설정
+                .passwordParameter("password")
+                .failureUrl("/member/login/error")
+                .permitAll()
+                .and()
+                .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
+                .logoutSuccessUrl("/") // 로그아웃 후 이동할 URL
+                .permitAll()
+                .and()
+                .csrf()
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()) // CSRF 보호 설정
+                .and()
+                .requestCache().disable() // 요청 캐시 비활성화 (필요 시)
+                .exceptionHandling().accessDeniedPage("/403"); // 접근 거부 페이지 설정 (필요 시)
 
-        @Bean
-        public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-            http
-                    .authorizeRequests()
-                    .mvcMatchers("/", "/member/**", "/guestbook/**").permitAll() // 공개 URL 설정
-                    .mvcMatchers("/css/**", "/js/**").permitAll() // 정적 자원 공개 설정
-                    .anyRequest().authenticated() // 나머지 요청은 인증 필요
-                    .and()
-                    .formLogin()
-                    .loginPage("/member/login")
-                    .defaultSuccessUrl("/") // 로그인 성공 시 이동할 URL
-                    .usernameParameter("userId")
-                    .passwordParameter("password")
-                    .failureUrl("/member/login/error")
-                    .permitAll()
-                    .and()
-                    .logout()
-                    .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
-                    .logoutSuccessUrl("/") // 로그아웃 후 이동할 URL
-                    .permitAll()
-                    .and()
-                    .csrf()
-                    .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()); // CSRF 보호 설정
-
-            return http.build();
-        }
+        return http.build();
     }
+}

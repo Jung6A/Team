@@ -89,40 +89,46 @@ a {
 /* 프로필 이미지 왼쪽 배치 */
 .user_proF_Box {
     display: flex;
-    align-items: center; /* 수직 정렬 */
+    align-items: center;
     background-color: #fff;
     padding: 20px;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-    width: 100%; /* 전체 너비 사용 */
+    width: 100%;
 }
 
 .profile-image-container {
-    flex: 0 0 auto; /* 이미지 컨테이너 너비 조정 */
-    margin-right: 20px; /* 이미지와 텍스트 사이의 간격 */
+    flex: 0 0 auto;
+    text-align: center; /* 이미지 중앙 정렬 */
+    margin-right: 20px;
 }
 
 .profile-image {
-    width: 100px; /* 고정된 너비 */
-    height: 100px; /* 고정된 높이 */
-    border-radius: 50%; /* 원형 이미지 */
-    object-fit: cover; /* 이미지가 잘리지 않도록 조정 */
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 .user_proF_Detail {
-    flex: 1; /* 텍스트 영역이 나머지 공간을 차지하도록 설정 */
-    background-color: #f0f0f0;
-    padding: 20px;
-    text-align: left; /* 텍스트 왼쪽 정렬 */
+    flex: 1;
+    padding: 0;
+    text-align: left;
 }
 
 .user_proF_Detail_Name {
-    font-size: 18px;
+    font-size: 22px;
     font-weight: bold;
+    margin-top: 10px;
+    text-align: center; /* 닉네임을 사진 밑에 중앙에 위치 */
 }
 
 .user_proF_Detail_Intro {
     font-size: 14px;
     line-height: 1.4;
+    margin-top: 10px;
+    background-color: #f0f0f0;
+    padding: 20px;
+    text-align: left; /* 자기소개 텍스트 왼쪽 정렬 */
 }
 
 /* 링크 스타일링 */
@@ -131,5 +137,5 @@ a {
     text-decoration: none;
     display: block;
     text-align: center;
-    margin-top: 10px; /* 링크 상단 여백 추가 */
+    margin-top: 10px;
 }
