@@ -13,23 +13,29 @@
 </head>
 <body>
 <div layout:fragment="main" id="main">
-    <div id="cardWrap">
-        <div id="top_Menu">
-            <!-- mainImg가 아닌 profileImg로 바꾸어야 할 필요가 있을 수 있습니다. -->
-            <div class="main_Box" th:each="proF : ${memberLists}">
-                <div class="user_proF_Box">
-                    <div class="user_proF_Detail"
-                         th:style="'background:url(' + ${proF.profileImageUrl} + ') no-repeat center; background-size:cover;'">
-                        <div class="user_proF_Detail_Name" th:text="${proF.nickName}"></div>
-                        <div class="user_proF_Detail_Intro" th:text="${proF.intro}"></div>
+    <div id="wrap">
+        <div id="cardWrap">
+            <div id="top_Menu">
+                <div class="main_Box" th:each="proF : ${memberLists}">
+                    <div class="user_proF_Box">
+                        <div class="user_proF_Detail">
+                            <div class="profile-image-container">
+                                <!-- 프로필 이미지 URL을 정확히 설정 -->
+                                <img th:src="@{/guestbook/{fileName}(fileName=${proF.profileImageName})}" alt="프로필 이미지" class="profile-image">
+                            </div>
+                            <div class="user_proF_Detail_Info">
+                                <div class="user_proF_Detail_Name" th:text="${proF.nickName}"></div>
+                                <div class="user_proF_Detail_Intro" th:text="${proF.intro}"></div>
+                            </div>
+                        </div>
+
+                        <!-- 회원정보 페이지로 이동하는 링크 추가 -->
+                        <a href="/member/${proF.userId}" class="user-info-link">방명록 방문하기</a>
                     </div>
-                    <!-- 적절한 링크 URL을 추가하세요 -->
-                    <a th:href="'/guest/'+${proF.userId}">방명록 가기</a>
-                </div>
-                <div class="user_main">
-                    <h3>게시글</h3>
-                    <!-- 게시글 내용 추가 필요 -->
-                    <h3></h3>
+                    <div class="user_main">
+                        <h3>게시글</h3>
+                        <!-- 게시글 내용 추가 필요 -->
+                    </div>
                 </div>
             </div>
         </div>

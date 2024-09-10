@@ -20,13 +20,11 @@ public class MemberControl {
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
 
-    // 로그인 페이지 요청
     @GetMapping("/login")
     public String loginPage(Model model) {
         return "member/login";
     }
 
-    // 회원가입 페이지 요청
     @GetMapping("/join")
     public String joinPage(Model model) {
         model.addAttribute("joinDto", new JoinDto());
@@ -35,7 +33,7 @@ public class MemberControl {
 
     @PostMapping("/join")
     public String join(@Valid JoinDto joinDto, BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) { // 유효하지 않은 값 존재
+        if (bindingResult.hasErrors()) {
             return "member/join";
         }
 
@@ -48,10 +46,9 @@ public class MemberControl {
             bindingResult.rejectValue("email", "error.joinDto", e2.getMessage());
             return "member/join";
         }
-        return "redirect:/member/login"; // 회원가입 후 로그인 페이지로 리다이렉트
+        return "redirect:/member/login";
     }
 
-    // 로그인 실패 - 아이디나 비밀번호 틀린경우
     @GetMapping("/login/error")
     public String loginFail(Model model) {
         model.addAttribute("loginFailMsg", "아이디 또는 비밀번호가 올바르지 않습니다.");
