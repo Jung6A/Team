@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Role;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,15 +14,12 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-
 @Configuration
 @EnableWebSecurity
-
 public class SecurityConfig {
+
     @Autowired
-    MemberService memberService;
+    private MemberService memberService;
 
     private final UserDetailsService userDetailsService;
     private final PasswordEncoder passwordEncoder;
@@ -32,37 +28,36 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     public SecurityConfig(UserDetailsService userDetailsService, @Lazy PasswordEncoder passwordEncoder) {
         this.userDetailsService = userDetailsService;
         this.passwordEncoder = passwordEncoder;
     }
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        @Bean
+        public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+            http
+                    .authorizeRequests()
+                    .mvcMatchers("/", "/member/**", "/guestbook/**").permitAll() // 공개 URL 설정
+                    .mvcMatchers("/css/**", "/js/**").permitAll() // 정적 자원 공개 설정
+                    .anyRequest().authenticated() // 나머지 요청은 인증 필요
+                    .and()
+                    .formLogin()
+                    .loginPage("/member/login")
+                    .defaultSuccessUrl("/") // 로그인 성공 시 이동할 URL
+                    .usernameParameter("userId")
+                    .passwordParameter("password")
+                    .failureUrl("/member/login/error")
+                    .permitAll()
+                    .and()
+                    .logout()
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
+                    .logoutSuccessUrl("/") // 로그아웃 후 이동할 URL
+                    .permitAll()
+                    .and()
+                    .csrf()
+                    .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()); // CSRF 보호 설정
 
-        http.formLogin()
-                .loginPage("/member/login")
-                .defaultSuccessUrl("/")
-                .usernameParameter("userId")
-                .passwordParameter("password")
-                .failureUrl("/member/login/error")
-                .and()
-                .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
-                .logoutSuccessUrl("/");
-
-        //인가·인증·누구든 접근 허용 주소 설정
-        http.authorizeRequests()
-                .mvcMatchers("/", "/member/**",  "/guest/**").permitAll()
-                .mvcMatchers("/css/**", "/js/**", "/image/**", "/images/**").permitAll()
-                .anyRequest().authenticated();
-
-        http.csrf()
-                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
-
-//        http.formLogin().disable();
-//        http.csrf().disable();
-
-        return http.build();
+            return http.build();
+        }
     }
-}

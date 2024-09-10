@@ -24,27 +24,30 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Transactional
 public class MemberService implements UserDetailsService {
+
     private final MemberRepository memberRepository;
     private final FileService fileService;
 
-    @Value("${itemImgPath}")
-    private String imgPath;
+    @Value("${uploadPath}")
+    private String uploadPath;
 
-    // 회원 가입 폼의 내용을 데이터베이스에 저장
     public void saveMember(JoinDto joinDto, PasswordEncoder passwordEncoder) {
         Member member = joinDto.createEntity(passwordEncoder);
 
         // 아이디와 이메일 중복 여부 검사
-        validUserIdEmail(member);
+        validateUserIdEmail(member);
 
         // 프로필 이미지 처리
         MultipartFile profileImage = joinDto.getProfileImageUrl();
         if (profileImage != null && !profileImage.isEmpty()) {
             try {
-                String profileImageName = fileService.uploadFile(imgPath, profileImage.getOriginalFilename(), profileImage.getBytes());
+                // 파일을 지정된 경로에 저장하고 파일 이름을 반환받음
+                String profileImageName = fileService.uploadFile(uploadPath, profileImage.getOriginalFilename(), profileImage.getBytes());
+                // 파일 이름을 저장하고 URL을 설정
                 member.setProfileImageName(profileImageName);
-                member.setProfileImageUrl("/images/" + profileImageName);
+                member.setProfileImageUrl("/guestbook/" + profileImageName);
             } catch (Exception e) {
+                // 파일 처리 오류 발생 시 예외 처리
                 throw new IllegalStateException("이미지 파일 처리 오류", e);
             }
         }
@@ -53,7 +56,7 @@ public class MemberService implements UserDetailsService {
         memberRepository.save(member);
     }
 
-    private void validUserIdEmail(Member member) {
+    private void validateUserIdEmail(Member member) {
         // 아이디 중복 체크
         if (memberRepository.findByUserId(member.getUserId()) != null) {
             throw new IllegalStateException("이미 가입된 아이디입니다.");
@@ -68,7 +71,7 @@ public class MemberService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Member member = memberRepository.findByUserId(username);
         if (member == null) {
-            throw new UsernameNotFoundException(username);
+            throw new UsernameNotFoundException("사용자를 찾을 수 없습니다: " + username);
         }
         return User.builder()
                 .username(member.getUserId())
@@ -80,7 +83,7 @@ public class MemberService implements UserDetailsService {
         // 회원을 userId로 검색
         Member member = memberRepository.findByUserId(userId);
         if (member == null) {
-            throw new UsernameNotFoundException("해당 회원을 찾을 수 없습니다.");
+            throw new UsernameNotFoundException("해당 회원을 찾을 수 없습니다: " + userId);
         }
         return member;
     }
