@@ -26,8 +26,8 @@
             <form method="post" action="/guest/writeComplete" id="inputGuestbook">
                 <!-- 방명록 입력 칸은 로그인 상태에서만 보이도록 수정 다 하면 sec:authorize="isAuthenticated()" 추가 -->
 <!--                <input type="hidden" id="guestbookId" th:value="">-->
-                <input type="hidden" id="writer" value="${session.user}">
-                <textarea id="introInput" placeholder="방명록을 입력하세요"></textarea>
+                <input type="hidden" th:field="${guestContent.writer}" value="${session.user}">
+                <textarea id="introInput" th:field="${guestContent.content}" placeholder="방명록을 입력하세요"></textarea>
                 <button id="introBT">작성</button>
             </form>
             <div id="page">페이징을 할 경우 여기?</div>

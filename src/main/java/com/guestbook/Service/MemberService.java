@@ -1,6 +1,8 @@
 package com.guestbook.Service;
 
+import com.guestbook.Dto.GuestbookContentDto;
 import com.guestbook.Dto.JoinDto;
+import com.guestbook.Entity.GuestbookContent;
 import com.guestbook.Entity.Member;
 import com.guestbook.Repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
