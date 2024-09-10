@@ -20,7 +20,6 @@ public class MainControl {
 
         // 회원 정보를 메인화면에 전달
         List<JoinDto> memberList = memberService.getAllMembers();
-
         model.addAttribute("memberLists", memberList);
 
         return "index";

@@ -15,7 +15,7 @@
         <script th:inline="javascript">
 
             $(function() {
-                $('#profileImagePath').on('change', function(event) {
+                $('#profileImageUrl').on('change', function(event) {
 
 
                     var file = event.target.files[0];
@@ -95,7 +95,7 @@
                     </div>
                     <div class="inputField">
                         <label th:for="profileImage">프로필 이미지</label>
-                        <input type="file"  th:field="*{profileImagePath}" class="formInput" accept="image/*">
+                        <input type="file"  th:field="*{profileImageUrl}" class="formInput" accept="image/*">
                         <!-- 이미지 미리보기 표시 -->
                         <div id="imagePreview" class="imagePreview"></div>
                     </div>

@@ -13,23 +13,25 @@
 </head>
 <body>
 <div layout:fragment="main" id="main">
-    <div id="cardWrap">
-        <div id="top_Menu">
-            <!-- mainImg가 아닌 profileImg로 바꾸어야 할 필요가 있을 수 있습니다. -->
-            <div class="main_Box" th:each="proF : ${memberLists}">
-                <div class="user_proF_Box">
-                    <div class="user_proF_Detail"
-                         th:style="'background:url(' + ${proF.profileImageUrl} + ') no-repeat center; background-size:cover;'">
-                        <div class="user_proF_Detail_Name" th:text="${proF.nickName}"></div>
-                        <div class="user_proF_Detail_Intro" th:text="${proF.intro}"></div>
+    <div id="wrap">
+        <div id="cardWrap"> <!-- id="wrap"은 main에 이미 있음. cardWrap으로 수정합니다. -->
+            <div id="top_Menu">
+                <!-- mainImg가 아닌 profileImg로 바꾸어야 할 필요가 있을 수 있습니다. -->
+                <div class="main_Box" th:each="proF : ${memberLists}">
+                    <div class="user_proF_Box">
+                        <div class="user_proF_Detail"
+                             th:style="'background:url(' + ${proF.profileImageUrl} + ') no-repeat center; background-size:cover;'">
+                            <div class="user_proF_Detail_Name" th:text="${proF.nickName}"></div>
+                            <div class="user_proF_Detail_Intro" th:text="${proF.intro}"></div>
+                        </div>
+                        <!-- 적절한 링크 URL을 추가하세요 -->
+                        <a href="/userInfo?userId=${proF.userId}">회원정보</a>
                     </div>
-                    <!-- 해당 유저의 방명록으로 가는 링크 -->
-                    <a th:href="'/guest/'+${proF.userId}">방명록 가기</a>
-                </div>
-                <div class="user_main">
-                    <h3>게시글</h3>
-                    <!-- 게시글 내용 추가 필요 -->
-                    <h3></h3>
+                    <div class="user_main">
+                        <h3>게시글</h3>
+                        <!-- 게시글 내용 추가 필요 -->
+                        <h3></h3>
+                    </div>
                 </div>
             </div>
         </div>
