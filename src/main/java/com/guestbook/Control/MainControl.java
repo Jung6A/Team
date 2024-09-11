@@ -1,6 +1,7 @@
 package com.guestbook.Control;
 
 import com.guestbook.Dto.JoinDto;
+import com.guestbook.Entity.GuestbookContent;
 import com.guestbook.Service.MemberService;
 import com.guestbook.Entity.Member;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,7 @@ public class MainControl {
         Member member = memberService.getMember(userId);
         JoinDto joinDto = JoinDto.of(member);
         model.addAttribute("member", joinDto);
+        model.addAttribute("guestContent", new GuestbookContent()); //방명록 작성 시 사용하는 방명록 컨텐츠 객체 생성
         return "guestbook/detail"; // 회원 상세 페이지 템플릿 이름
     }
 }
