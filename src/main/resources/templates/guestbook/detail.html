@@ -8,58 +8,69 @@
     <title layout:fragment="title">방명록</title>
 
     <th:block layout:fragment="css">
-        <!-- 공통 CSS 파일 로드 -->
-        <link rel="stylesheet" href="/css/init.css">
-        <!-- 페이지별 CSS 파일 로드 (후순위) -->
         <link rel="stylesheet" href="/css/guestbook.css">
+        <link rel="stylesheet" href="/css/modal.css"> <!-- 신고 모달용 스타일 -->
     </th:block>
-    <th:block layout:fragment="script"></th:block>
+    <th:block layout:fragment="script">
+        <script src="/js/modal.js"></script> <!-- 신고 모달용 스크립트 -->
+    </th:block>
 </head>
 <body>
 <div layout:fragment="main" id="main">
     <div id="detailWrap">
-        <!-- 사용자 프로필 정보 -->
         <div id="profCard">
+            <!-- 사용자 프로필 정보 -->
             <div id="profIcon">
-                <!-- 프로필 이미지 표시 -->
-                <img th:src="@{/guestbook/{fileName}(fileName=${member.profileImageName})}" alt="프로필 사진" id="profileImage"/>
+                <img th:src="@{${member.profileImageUrl}}" alt="프로필 사진" id="profileImage"/>
             </div>
             <div id="profDetail">
-                <!-- 사용자 닉네임, 이메일, 자기소개 -->
                 <h3 th:text="${member.nickName}">닉네임</h3>
                 <p th:text="${member.email}">이메일</p>
                 <p th:text="${member.intro}">자기소개</p>
             </div>
         </div>
-
-        <!-- 방명록 작성 폼 (로그인 상태에서만 보이도록 설정) -->
-        <sec:authorize access="isAuthenticated()">
-            <form method="post" action="/guest/writeComplete" id="inputGuestbook">
-                <textarea id="introInput" name="content" placeholder="방명록을 입력하세요" required></textarea>
-                <button id="introBT" type="submit">작성</button>
-            </form>
-        </sec:authorize>
-
-        <!-- 방명록 목록 -->
-        <div id="guestbookEntries">
-            <div th:each="guest : ${guestbookEntries}" class="guestbook">
-                <div class="guestContent">
-                    <div class="guestIcon">
-                        <!-- 방명록 작성자의 프로필 이미지 표시 -->
-                        <img th:src="@{/images/{fileName}(fileName=${guest.profileImageName})}" alt="방명록 작성자 프로필 사진" class="guestProfileImage"/>
-                    </div>
-                    <div class="guestBody">
-                        <!-- 방명록 본문 -->
-                        <p th:text="${guest.content}">방명록 본문</p>
-                    </div>
-                </div>
-                <!-- 방명록 신고 버튼 -->
-                <a href="#" class="notify"><i class="fa-solid fa-bell"></i> 신고</a>
-            </div>
-        </div>
-
-        <!-- 페이지 네비게이션 (추후 추가 필요) -->
+        <form method="post" action="/guest/writeComplete" id="inputGuestbook" sec:authorize="isAuthenticated()">
+            <textarea id="introInput" name="content" placeholder="방명록을 입력하세요" required></textarea>
+            <button id="introBT" type="submit">작성</button>
+        </form>
         <div id="page">페이징을 할 경우 여기?</div>
+        <div th:each="guest : ${guestbookContent}" class="guestbook">
+            <div class="guestContent">
+                <div class="guestIcon">
+                    <img th:src="@{${guest.profileImageUrl}}" alt="프로필 사진" class="guestProfileImage"/>
+                </div>
+                <div class="guestBody" th:text="${guest.content}">방명록 본문</div>
+            </div>
+            <a href="#" class="notify" onclick="openModal('${guest.id}')"><i class="fa-solid fa-bell"></i> 신고</a>
+        </div>
+    </div>
+</div>
+
+<!-- 신고 모달 -->
+<div id="reportModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span> <!-- &times는 팝업창 닫기 X 표시  -->
+        <h2>신고 사유 선택</h2>
+        <form id="reportForm" method="post" action="/report/submit"> <!--매핑 필요합니다 !-->
+
+            <input type="hidden" id="reportedGuestId" name="guestId">
+            <div>
+                <label><input type="radio" name="reason" value="스팸" required> 스팸</label>
+            </div>
+            <div>
+                <label><input type="radio" name="reason" value="욕설" required> 욕설</label>
+            </div>
+            <div>
+                <label><input type="radio" name="reason" value="부적절한 내용" required> 부적절한 내용</label>
+            </div>
+            <div>
+                <label>기타 사유: <input type="text" name="reasonDetail"></label>
+            </div>
+            <div>
+                <button type="submit">신고하기</button>
+                <button type="button" onclick="closeModal()">취소</button>
+            </div>
+        </form>
     </div>
 </div>
 </body>
