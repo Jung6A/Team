@@ -59,6 +59,7 @@
 
 #introInput {
     width: 80%;
+    resize: none; /* 입력창 리사이징 방지(비율 무너짐) 내용이 너무 길면 텍스트에리어 내부에 스크롤이 생김 */
     padding: 8px; /* 줄어든 패딩 */
 }
 
@@ -107,4 +108,6 @@
 
 #page {
     margin-top: 20px;
+    text-align: center;
+    justify-content: center;
 }
