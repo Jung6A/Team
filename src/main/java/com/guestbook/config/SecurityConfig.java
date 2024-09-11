@@ -25,7 +25,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .mvcMatchers("/", "/member/**", "/css/**", "/js/**").permitAll() // 공개 URL 설정
+                .mvcMatchers("/", "/member/**", "/css/**", "/js/**", "/image/**").permitAll() // 공개 URL 설정
                 .mvcMatchers("/guest/**").authenticated() // /guest/**는 인증된 사용자만 접근 허용
                 .anyRequest().authenticated() // 나머지 요청은 인증 필요
                 .and()
