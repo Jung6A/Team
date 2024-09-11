@@ -8,12 +8,12 @@
     <title layout:fragment="title">방명록</title>
 
     <th:block layout:fragment="css">
-        <!-- 공통 CSS 파일 로드 -->
-        <link rel="stylesheet" href="/css/init.css">
-        <!-- 페이지별 CSS 파일 로드 (후순위) -->
         <link rel="stylesheet" href="/css/guestbook.css">
+        <link rel="stylesheet" href="/css/modal.css"> <!-- 신고 모달용 스타일 -->
     </th:block>
-    <th:block layout:fragment="script"></th:block>
+    <th:block layout:fragment="script">
+        <script src="/js/modal.js"></script> <!-- 신고 모달용 스크립트 -->
+    </th:block>
 </head>
 <body>
 <div layout:fragment="main" id="main">
@@ -58,6 +58,34 @@
 
         <!-- 페이지 네비게이션 (추후 추가 필요) -->
         <div id="page">페이징을 할 경우 여기?</div>
+    </div>
+
+    <!-- 신고 모달 -->
+    <div id="reportModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span> <!-- &times는 팝업창 닫기 X 표시  -->
+            <h2>신고 사유 선택</h2>
+            <form id="reportForm" method="post" action="/report/submit"> <!--매핑 필요합니다 !-->
+
+                <input type="hidden" id="reportedGuestId" name="guestId">
+                <div>
+                    <label><input type="radio" name="reason" value="스팸" required> 스팸</label>
+                </div>
+                <div>
+                    <label><input type="radio" name="reason" value="욕설" required> 욕설</label>
+                </div>
+                <div>
+                    <label><input type="radio" name="reason" value="부적절한 내용" required> 부적절한 내용</label>
+                </div>
+                <div>
+                    <label>기타 사유: <input type="text" name="reasonDetail"></label>
+                </div>
+                <div>
+                    <button type="submit">신고하기</button>
+                    <button type="button" onclick="closeModal()">취소</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 </body>
