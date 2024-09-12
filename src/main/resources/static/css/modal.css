@@ -34,7 +34,8 @@
     cursor: pointer;
 }
 
-button {
+/* 방명록 작성 버튼에는 적용되지 않도록 버튼 감싼 div에 아이디 부여 */
+#modalBT button {
     margin-top: 10px;
 }
 .close{
