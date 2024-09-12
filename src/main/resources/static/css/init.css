@@ -67,6 +67,7 @@ a {
     display: flex;
     justify-content: center;
     flex-wrap: wrap; /* 카드들이 줄 바꿈될 수 있도록 설정 */
+    gap: 20px; /* grid나 flex나 multi-column이 아니면 gap은 적용이 안 되는듯 */
 }
 
 .main_Box {
@@ -75,6 +76,7 @@ a {
     gap: 20px; /* 두 박스 사이의 여백 */
     width: 100%;
     max-width: 1200px; /* 내용이 너무 넓어지지 않도록 제한 */
+    margin: 30px; /* 위아래 여백 */
 }
 
 .user_proF_Box {

@@ -63,7 +63,7 @@
     <!-- 신고 모달 -->
     <div id="reportModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span> <!-- &times는 팝업창 닫기 X 표시  -->
+            <span class="close" onclick="closeModal()"><i class="bi bi-x"></i></span> <!-- 부트스트랩 아이콘으로 x 변경 -->
             <h2>신고 사유 선택</h2>
             <form id="reportForm" method="post" action="/report/submit"> <!--매핑 필요합니다 !-->
 
@@ -78,7 +78,7 @@
                     <label><input type="radio" name="reason" value="부적절한 내용" required> 부적절한 내용</label>
                 </div>
                 <div>
-                    <label>기타 사유: <input type="text" name="reasonDetail"></label>
+                    <label><input type="radio" name="reason" value="기타 사유" required> 기타 사유: <input type="text" name="reasonDetail"></label>
                 </div>
                 <div>
                     <button type="submit">신고하기</button>
