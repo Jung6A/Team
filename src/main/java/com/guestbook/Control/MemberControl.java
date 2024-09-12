@@ -48,6 +48,8 @@ public class MemberControl {
         } catch (IllegalArgumentException e2) {
             bindingResult.rejectValue("email", "error.joinDto", e2.getMessage());
             return "member/join";
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
 
         return "redirect:/member/login";

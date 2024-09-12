@@ -23,6 +23,7 @@
                             <div class="profile-image-container">
                                 <!-- 프로필 이미지 URL을 정확히 설정 -->
                                 <img th:src="@{/guestbook/{fileName}(fileName=${proF.profileImageName})}" alt="프로필 이미지" class="profile-image">
+<!--                                <img th:src="${proF.MemberImgDto.ImgUrl}" alt="프로필 이미지" class="profile-image"> images를 생각했는데 안 돼서 -->
                             </div>
                             <div class="user_proF_Detail_Info">
                                 <div class="user_proF_Detail_Name" th:text="${proF.nickName}"></div>
