@@ -36,5 +36,6 @@ public class Guestbook {
         guestbook.setWriter(writer);
         guestbook.setGuestbookId(guestbookId); // guestbookId 설정
         return guestbook;
+
     }
 }
