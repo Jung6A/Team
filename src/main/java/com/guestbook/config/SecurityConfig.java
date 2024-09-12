@@ -2,14 +2,11 @@ package com.guestbook.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -25,7 +22,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .mvcMatchers("/", "/member/**", "/css/**", "/js/**", "/image/**").permitAll() // 공개 URL 설정
+                .mvcMatchers("/", "/member/**","/guestbook/**", "/css/**", "/js/**", "/image/**").permitAll() // 공개 URL 설정
                 .mvcMatchers("/guest/**").authenticated() // /guest/**는 인증된 사용자만 접근 허용
                 .anyRequest().authenticated() // 나머지 요청은 인증 필요
                 .and()
@@ -42,9 +39,7 @@ public class SecurityConfig {
                 .logoutSuccessUrl("/")
                 .permitAll()
                 .and()
-                .csrf()
-                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .and()
+                .csrf().disable() // CSRF 보호 비활성화
                 .requestCache().disable()
                 .exceptionHandling().accessDeniedPage("/403");
 

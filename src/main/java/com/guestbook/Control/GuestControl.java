@@ -2,8 +2,6 @@ package com.guestbook.Control;
 
 import com.guestbook.Dto.GuestbookContentDto;
 import com.guestbook.Dto.JoinDto;
-import com.guestbook.Entity.Guestbook;
-import com.guestbook.Entity.GuestbookContent;
 import com.guestbook.Entity.Member;
 import com.guestbook.Service.GuestService;
 import com.guestbook.Service.MemberService;
@@ -12,43 +10,49 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/guestbook")
 public class GuestControl {
 
-    private final MemberService memberService;
     private final GuestService guestService;
+    private final MemberService memberService;
 
-    @GetMapping("/guest/{userId}")
-    public String guestHome(Model model, @PathVariable("userId") String userId) {
+    @PostMapping("/writeComplete")
+    public String writeGuestbook(@RequestParam("content") String content,
+                                 @RequestParam("guestbookId") String guestbookId) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || !authentication.isAuthenticated() || authentication.getPrincipal() instanceof String) {
+        if (authentication == null || !authentication.isAuthenticated()) {
             return "redirect:/member/login";
         }
 
-        Member member = memberService.getMember(userId);
-        JoinDto joinDto = JoinDto.of(member);
-        model.addAttribute("member", joinDto);
-        Guestbook guestbook=guestService.getGuestbook(member.getId()); //해당 회원 방명록 불러오기
-        model.addAttribute("guestbook", guestbook);
-        model.addAttribute("guestContent", new GuestbookContent()); //방명록 작성 시 사용하는 방명록 컨텐츠 객체 생성
-        return "guestbook/detail";
+        String username = authentication.getName();
+
+        GuestbookContentDto guestbookContentDto = new GuestbookContentDto();
+        guestbookContentDto.setContent(content);
+        guestbookContentDto.setGuestbookId(guestbookId);
+        guestbookContentDto.setWriter(username);
+        guestbookContentDto.setCreatedDate(LocalDateTime.now()); // 작성 시간 설정
+
+        guestService.saveGuestbookContent(guestbookContentDto);
+
+        return "redirect:/guestbook/detail?guestbookId=" + guestbookId;
     }
 
-    @PostMapping("/writeComplete")
-    public String save(@Valid GuestbookContentDto guestbookContentDto, BindingResult bindingResult, Model model) {
-        if(bindingResult.hasErrors()) {
-            return "/guestbook/detail";
-        }
-        guestService.save(guestbookContentDto);
+    @GetMapping("/detail")
+    public String getGuestbookDetail(@RequestParam("guestbookId") String guestbookId, Model model) {
+        Member member = memberService.getMember(guestbookId);
+        JoinDto joinDto = JoinDto.of(member);
+        model.addAttribute("member", joinDto);
 
-        return "/guestbook/detail";
+        List<GuestbookContentDto> guestbookContents = guestService.getGuestbookContentsByMemberId(guestbookId);
+        model.addAttribute("guestbookContents", guestbookContents);
+
+        return "guestbook/detail";
     }
 }

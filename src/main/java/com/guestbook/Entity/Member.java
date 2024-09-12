@@ -1,19 +1,19 @@
 package com.guestbook.Entity;
 
 import com.guestbook.constant.Role;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Data
-@NoArgsConstructor
-@Table(name = "project_member")
+@Getter
+@Setter
 public class Member {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "member_id")
     private Long id;
 
     @Column(unique = true, nullable = false)
@@ -27,9 +27,9 @@ public class Member {
 
     private String intro;
 
-    // 프로필 이미지 관련 필드 추가
-    private String profileImageName;  // 프로필 이미지 이름
-    private String profileImageUrl;   // 프로필 이미지 URL
+    private String profileImageName;
+
+    private String profileImageUrl;
 
     @Column(unique = true, nullable = false)
     private String email;
@@ -37,4 +37,7 @@ public class Member {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Guestbook> guestbooks;
 }

@@ -33,18 +33,19 @@
         </div>
 
         <!-- 방명록 작성 폼 (로그인 상태에서만 보이도록 설정) -->
-        <form method="post" action="/guest/writeComplete" id="inputGuestbook" sec:authorize="isAuthenticated()" th:object="${guestContent}">
-            <textarea id="introInput" th:field="*{content}" placeholder="방명록을 입력하세요" required></textarea>
+        <form method="post" action="/guestbook/writeComplete" id="inputGuestbook" sec:authorize="isAuthenticated()">
+            <input type="hidden" name="guestbookId" th:value="${member.userId}"/>
+            <textarea id="introInput" name="content" placeholder="방명록을 입력하세요" required></textarea>
             <button id="introBT" type="submit">작성</button>
         </form>
 
         <!-- 방명록 목록 -->
         <div id="guestbookEntries">
-            <div th:each="guest : ${guestbookEntries}" class="guestbook">
+            <div th:each="guest : ${guestbookContents}" class="guestbook">
                 <div class="guestContent">
                     <div class="guestIcon">
                         <!-- 방명록 작성자의 프로필 이미지 표시 -->
-                        <img th:src="@{/images/{fileName}(fileName=${guest.profileImageName})}" alt="방명록 작성자 프로필 사진" class="guestProfileImage"/>
+<!--                        <img th:src="@{/images/{fileName}(fileName=${guest.profileImageName})}" alt="방명록 작성자 프로필 사진" class="guestProfileImage"/>-->
                     </div>
                     <div class="guestBody">
                         <!-- 방명록 본문 -->

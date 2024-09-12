@@ -1,5 +1,7 @@
 package com.guestbook.Dto;
 
+import com.guestbook.Entity.Guestbook;
+import com.guestbook.Entity.GuestbookContent;
 import com.guestbook.Entity.Member;
 import com.guestbook.constant.Role;
 import lombok.Getter;
@@ -10,6 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -34,6 +38,8 @@ public class JoinDto {
 
     private String intro;
 
+    private List<GuestbookContentDto> guestbookContents; // 방명록 내용을 추가
+
     public Member createEntity(PasswordEncoder passwordEncoder){
         Member member = new Member();
         member.setNickName(this.nickName);
@@ -54,6 +60,10 @@ public class JoinDto {
         joinDto.setUserId(member.getUserId());
         joinDto.setIntro(member.getIntro());
         joinDto.setProfileImageName(member.getProfileImageName()); // 프로필 이미지 이름 설정
+        joinDto.setGuestbookContents(member.getGuestbooks().stream()
+                .flatMap(guestbook -> guestbook.getContents().stream() // Guestbook의 Content를 가져온다
+                        .map(GuestbookContentDto::of)) // GuestbookContent를 GuestbookContentDto로 변환
+                .collect(Collectors.toList())); // 리스트로 수집
         return joinDto;
     }
 }

@@ -1,6 +1,8 @@
 package com.guestbook.Control;
 
+import com.guestbook.Dto.GuestbookContentDto;
 import com.guestbook.Dto.JoinDto;
+import com.guestbook.Service.GuestService;
 import com.guestbook.Service.MemberService;
 import com.guestbook.Entity.Member;
 import lombok.RequiredArgsConstructor;
@@ -16,12 +18,19 @@ import java.util.List;
 public class MainControl {
 
     private final MemberService memberService;
+    private final GuestService guestService;
 
     @GetMapping("/")
     public String main(Model model) {
         List<JoinDto> memberList = memberService.getAllMembers();
+
+        for (JoinDto member : memberList) {
+            List<GuestbookContentDto> guestbookContents = guestService.getGuestbookContentsByMemberId(member.getUserId());
+            member.setGuestbookContents(guestbookContents); // JoinDto에 방명록 내용 추가
+        }
+
         model.addAttribute("memberLists", memberList);
-        return "index";
+        return "index"; // 메인 페이지 템플릿 이름
     }
 
     @GetMapping("/members/{userId}")
