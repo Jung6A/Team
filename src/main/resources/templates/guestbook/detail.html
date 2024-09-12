@@ -48,6 +48,7 @@
                         <!--                        <img th:src="@{/images/{fileName}(fileName=${guest.profileImageName})}" alt="방명록 작성자 프로필 사진" class="guestProfileImage"/>-->
                     </div>
                     <div class="guestBody">
+                        <b th:text="${guest.writer}"></b> <!-- 작성자 표기 -->
                         <!-- 방명록 본문 -->
                         <p th:text="${guest.content}">방명록 본문</p>
                     </div>
@@ -82,7 +83,7 @@
                 <div>
                     <label><input type="radio" name="reason" value="기타 사유" required> 기타 사유: <input type="text" name="reasonDetail"></label>
                 </div>
-                <div>
+                <div id="modalBT">
                     <button type="submit">신고하기</button>
                     <button type="button" onclick="closeModal()">취소</button>
                 </div>
