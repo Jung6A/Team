@@ -45,7 +45,7 @@
                 <div class="guestContent">
                     <div class="guestIcon">
                         <!-- 방명록 작성자의 프로필 이미지 표시 -->
-<!--                        <img th:src="@{/images/{fileName}(fileName=${guest.profileImageName})}" alt="방명록 작성자 프로필 사진" class="guestProfileImage"/>-->
+                        <!--                        <img th:src="@{/images/{fileName}(fileName=${guest.profileImageName})}" alt="방명록 작성자 프로필 사진" class="guestProfileImage"/>-->
                     </div>
                     <div class="guestBody">
                         <!-- 방명록 본문 -->
@@ -53,7 +53,7 @@
                     </div>
                 </div>
                 <!-- 방명록 신고 버튼 -->
-                <a href="#" class="notify"><i class="fa-solid fa-bell"></i> 신고</a>
+                <a href="#" class="notify" onclick="openModal('{guestId}')"><i class="fa-solid fa-bell"></i> 신고</a>
             </div>
         </div>
 
@@ -63,6 +63,7 @@
 
     <!-- 신고 모달 -->
     <div id="reportModal" class="modal">
+
         <div class="modal-content">
             <span class="close" onclick="closeModal()"><i class="bi bi-x"></i></span> <!-- 부트스트랩 아이콘으로 x 변경 -->
             <h2>신고 사유 선택</h2>
