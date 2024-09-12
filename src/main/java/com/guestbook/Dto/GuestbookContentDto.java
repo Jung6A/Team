@@ -1,6 +1,7 @@
 package com.guestbook.Dto;
 
 import com.guestbook.Entity.GuestbookContent;
+import com.guestbook.Entity.Report;
 import lombok.Getter;
 import lombok.Setter;
 

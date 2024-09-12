@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -49,6 +50,10 @@ public class GuestControl {
         Member member = memberService.getMember(guestbookId);
         JoinDto joinDto = JoinDto.of(member);
         model.addAttribute("member", joinDto);
+
+//        String userId = principal.getName(); // 현재 로그인한 사람의 아이디
+//
+//        model.addAttribute("userId",userId);
 
         List<GuestbookContentDto> guestbookContents = guestService.getGuestbookContentsByMemberId(guestbookId);
         model.addAttribute("guestbookContents", guestbookContents);

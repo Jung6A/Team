@@ -17,11 +17,11 @@ public class Report {
 
     @ManyToOne
     @JoinColumn(name = "reporter_id")
-    private Member reporter; // 신고자
+    private Member reporter; // 신고자- 현재로그인한 사람
 
     @ManyToOne
     @JoinColumn(name = "reported_guest_id")
-    private Guestbook reportedGuest; // 신고 당한 사람 (방명록 작성자)
+    private GuestbookContent reportedGuest; // 신고 당한 사람 (방명록 작성자)
 
     private String reason; // 신고 사유
 
