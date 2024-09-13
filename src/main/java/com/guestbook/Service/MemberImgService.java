@@ -19,13 +19,13 @@ public class MemberImgService {
     private final MemberImgRepository itemImgRepository;
 
     public void saveItemImg(MemberImg memberImg, MultipartFile multipartFile) throws Exception {
-        String originalName=multipartFile.getOriginalFilename(); //이미지 원본 이름
-        String imgName="";
-        String imgUrl="";
-        //파일 업로드
-        if(!StringUtils.isEmpty(originalName)){
-            imgName=fileService.uploadFile(uploadPath, originalName, multipartFile.getBytes());
-            imgUrl="/images/"+imgName; //웹에 사용할 이미지 경로
+        String originalName = multipartFile.getOriginalFilename(); // 이미지 원본 이름
+        String imgName = "";
+        String imgUrl = "";
+        // 파일 업로드
+        if (!StringUtils.isEmpty(originalName)) {
+            imgName = fileService.uploadFile(uploadPath, originalName, multipartFile.getBytes());
+            imgUrl = "/images/" + imgName; // 웹에 사용할 이미지 경로
         }
         memberImg.setImgUrl(imgUrl);
         memberImg.setImgName(imgName);

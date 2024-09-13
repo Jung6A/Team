@@ -38,6 +38,11 @@ public class MainControl {
         Member member = memberService.getMember(userId);
         JoinDto joinDto = JoinDto.of(member);
         model.addAttribute("member", joinDto);
+
+        // 방명록 내용도 같이 추가
+        List<GuestbookContentDto> guestbookContents = guestService.getGuestbookContentsByMemberId(userId);
+        model.addAttribute("guestbookContents", guestbookContents);
+
         return "guestbook/detail"; // 회원 상세 페이지 템플릿 이름
     }
 }

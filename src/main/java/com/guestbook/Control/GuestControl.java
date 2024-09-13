@@ -38,7 +38,7 @@ public class GuestControl {
         guestbookContentDto.setContent(content);
         guestbookContentDto.setGuestbookId(guestbookId);
         guestbookContentDto.setWriter(username);
-        guestbookContentDto.setCreatedDate(LocalDateTime.now()); // 작성 시간 설정
+        guestbookContentDto.setCreatedDate(LocalDateTime.now());
 
         guestService.saveGuestbookContent(guestbookContentDto);
 
@@ -50,10 +50,6 @@ public class GuestControl {
         Member member = memberService.getMember(guestbookId);
         JoinDto joinDto = JoinDto.of(member);
         model.addAttribute("member", joinDto);
-
-//        String userId = principal.getName(); // 현재 로그인한 사람의 아이디
-//
-//        model.addAttribute("userId",userId);
 
         List<GuestbookContentDto> guestbookContents = guestService.getGuestbookContentsByMemberId(guestbookId);
         model.addAttribute("guestbookContents", guestbookContents);
