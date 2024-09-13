@@ -152,6 +152,7 @@ a {
 .post-item{
     display: flex;
     font-size: 14px;
+    line-height: 16px;
     margin-bottom: 5px;
 }
 .post-writer{
@@ -161,9 +162,7 @@ a {
 }
 .post-content{
     width: 250px;
-    -webkit-line-clamp: 1;
     overflow: hidden;
     text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
+    white-space: nowrap;
 }
