@@ -35,11 +35,11 @@
                         <a th:href="'/guestbook/detail?guestbookId=' + ${proF.userId}" class="user-info-link">방명록 방문하기</a>
                     </div>
                     <div class="user_main">
-                        <h3>방명록 글 목록</h3>
+                        <h3 class="guestTitle">방명록 글 목록</h3>
                         <!-- 게시글 내용 표시 -->
                         <div th:each="post : ${proF.guestbookContents}" class="post-item">
-                            <p th:text="${post.content}">게시글 내용</p>
-                            <div class="post-writer" th:text="'작성자: ' + ${post.writer}"></div>
+                            <p th:text="${post.content}" class="post-content">게시글 내용</p>
+                            <p class="post-writer" th:text="'-' + ${post.writer}"></p>
                         </div>
                     </div>
                 </div>

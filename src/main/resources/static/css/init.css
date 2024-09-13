@@ -144,3 +144,26 @@ a {
     text-align: center;
     margin-top: 10px;
 }
+
+/* 메인 게시글 미리보기 */
+.guestTitle{
+    margin-bottom: 8px; /* 방명록 글 미리보기와 그 내용 사이에 여백 */
+}
+.post-item{
+    display: flex;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+.post-writer{
+    margin-left: 5px;
+    width: 90px;
+    text-align: right;
+}
+.post-content{
+    width: 250px;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
