@@ -4,7 +4,9 @@ import com.guestbook.Dto.GuestbookContentDto;
 import com.guestbook.Dto.JoinDto;
 import com.guestbook.Entity.Guestbook;
 import com.guestbook.Entity.Member;
+import com.guestbook.Entity.MemberImg;
 import com.guestbook.Repository.GuestBookRepository;
+import com.guestbook.Repository.MemberImgRepository;
 import com.guestbook.Repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,15 +27,16 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Transactional
 public class MemberService implements UserDetailsService {
-
     private final MemberRepository memberRepository;
+    private final MemberImgRepository memberImgRepository;
     private final GuestBookRepository guestBookRepository;
     private final FileService fileService;
+    private final MemberImgService memberImgService;
 
     @Value("${uploadPath}")
     private String uploadPath;
 
-    public void saveMember(JoinDto joinDto, PasswordEncoder passwordEncoder) {
+    public void saveMember(JoinDto joinDto, PasswordEncoder passwordEncoder) throws Exception {
         Member member = joinDto.createEntity(passwordEncoder);
 
         // 아이디와 이메일 중복 여부 검사
@@ -55,7 +58,13 @@ public class MemberService implements UserDetailsService {
         memberRepository.save(member);
 
         // 방명록 생성
+        // 방명록 생성
         Guestbook guestbook = Guestbook.createGuestbook(member, "환영합니다!", member.getUserId(), member.getUserId());
+
+        //images 경로로 memberImg 저장
+        MemberImg memberImg=new MemberImg();
+        memberImg.setMember(member);
+        memberImgService.saveItemImg(memberImg, profileImage);
 
         guestBookRepository.save(guestbook);
     }
@@ -83,6 +92,7 @@ public class MemberService implements UserDetailsService {
     }
 
     public Member getMember(String userId) {
+
         return memberRepository.findByUserId(userId)
                 .orElseThrow(() -> new UsernameNotFoundException("해당 회원을 찾을 수 없습니다: " + userId));
     }

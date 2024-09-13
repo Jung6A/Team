@@ -4,9 +4,11 @@ import com.guestbook.Dto.GuestbookContentDto;
 import com.guestbook.Entity.Guestbook;
 import com.guestbook.Entity.GuestbookContent;
 import com.guestbook.Entity.Member;
+import com.guestbook.Entity.Report;
 import com.guestbook.Repository.GuestbookContentRepository;
 import com.guestbook.Repository.GuestBookRepository;
 import com.guestbook.Repository.MemberRepository;
+import com.guestbook.Repository.ReportRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,7 @@ public class GuestServiceImpl implements GuestService {
     private final GuestBookRepository guestBookRepository;
     private final GuestbookContentRepository guestbookContentRepository;
     private final MemberRepository memberRepository;
+    private final ReportRepository reportRepository;
 
     @Override
     public void saveGuestbookContent(GuestbookContentDto guestbookContentDto) {
@@ -53,11 +56,22 @@ public class GuestServiceImpl implements GuestService {
 
     @Override
     public List<GuestbookContentDto> getGuestbookContentsByMemberId(String memberId) {
-        return guestBookRepository.findAll().stream()
+        List<GuestbookContentDto> guestbookContentDtos = guestBookRepository.findAll().stream()
                 .filter(guestbook -> guestbook.getMember().getUserId().equals(memberId))
                 .flatMap(guestbook -> guestbook.getContents().stream())
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
+
+        List<Report> cList = reportRepository.findAll();
+        for(Report find : cList){
+            for(GuestbookContentDto guestbookContentDto : guestbookContentDtos){
+                if (guestbookContentDto.getId() == find.getReportedGuest().getId())
+                    guestbookContentDto.setContent("이 글은 신고당한 게시글입니다.");
+
+            }
+        }
+
+        return guestbookContentDtos;
     }
 
     private GuestbookContentDto convertToDto(GuestbookContent guestbookContent) {

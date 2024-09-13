@@ -36,6 +36,10 @@ public class JoinDto {
 
     private String nickName;
 
+    //이미지 저장 경로용  DTO
+    private MemberImgDto memberImgDto;
+    private Long memberImgId;
+
     private String intro;
 
     private List<GuestbookContentDto> guestbookContents; // 방명록 내용을 추가
