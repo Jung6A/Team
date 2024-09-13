@@ -6,8 +6,6 @@ import com.guestbook.Entity.Member;
 import com.guestbook.Service.GuestService;
 import com.guestbook.Service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -41,7 +38,7 @@ public class GuestControl {
         guestbookContentDto.setContent(content);
         guestbookContentDto.setGuestbookId(guestbookId);
         guestbookContentDto.setWriter(username);
-        guestbookContentDto.setCreatedDate(LocalDateTime.now()); // 작성 시간 설정
+        guestbookContentDto.setCreatedDate(LocalDateTime.now());
 
         guestService.saveGuestbookContent(guestbookContentDto);
 
@@ -49,7 +46,7 @@ public class GuestControl {
     }
 
     @GetMapping("/detail")
-    public String getGuestbookDetail(@RequestParam("guestbookId") String guestbookId, @PathVariable("page") Optional<Integer> page, Model model) {
+    public String getGuestbookDetail(@RequestParam("guestbookId") String guestbookId, Model model) {
         Member member = memberService.getMember(guestbookId);
         JoinDto joinDto = JoinDto.of(member);
         model.addAttribute("member", joinDto);

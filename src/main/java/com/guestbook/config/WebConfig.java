@@ -13,18 +13,11 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/guestbook/**")
+        // 웹에서 /images/**로 접근 시 uploadPath의 파일을 서빙
+        registry.addResourceHandler("/images/**")
                 .addResourceLocations("file:" + uploadPath)
                 .setCachePeriod(3600)
                 .resourceChain(true)
                 .addResolver(new PathResourceResolver());
     }
-
-    //실제 업로드 경로와 웹에서 사용할 주소를 연결
-    //실제 업로드 경로는 웹에서 사용할 수 없는 경로이기 때문에 웹용으로 /images/를 쓰겠다고 등록
-//    @Override
-//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        registry.addResourceHandler("/images/**")
-//                .addResourceLocations(uploadPath);
-//    }
 }

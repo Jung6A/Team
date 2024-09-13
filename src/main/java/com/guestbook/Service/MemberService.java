@@ -58,14 +58,7 @@ public class MemberService implements UserDetailsService {
         memberRepository.save(member);
 
         // 방명록 생성
-        // 방명록 생성
-        Guestbook guestbook = Guestbook.createGuestbook(member, "환영합니다!", member.getUserId(), member.getUserId());
-
-        //images 경로로 memberImg 저장
-        MemberImg memberImg=new MemberImg();
-        memberImg.setMember(member);
-        memberImgService.saveItemImg(memberImg, profileImage);
-
+        Guestbook guestbook = Guestbook.createGuestbook(member, "", member.getUserId(), member.getUserId());
         guestBookRepository.save(guestbook);
     }
 
@@ -92,7 +85,6 @@ public class MemberService implements UserDetailsService {
     }
 
     public Member getMember(String userId) {
-
         return memberRepository.findByUserId(userId)
                 .orElseThrow(() -> new UsernameNotFoundException("해당 회원을 찾을 수 없습니다: " + userId));
     }
@@ -115,8 +107,12 @@ public class MemberService implements UserDetailsService {
 
         return member.getGuestbooks().stream()
                 .flatMap(guestbook -> guestbook.getContents().stream())
-                .map(GuestbookContentDto::of)
+                .map(content -> {
+                    GuestbookContentDto dto = GuestbookContentDto.of(content);
+                    // 방명록 작성자의 프로필 이미지 이름을 설정
+                    dto.setProfileImageName(content.getGuestbook().getMember().getProfileImageName());
+                    return dto;
+                })
                 .collect(Collectors.toList());
     }
-
 }

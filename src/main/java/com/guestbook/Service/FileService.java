@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.UUID;
 
 @Service
 @Slf4j
@@ -22,8 +21,15 @@ public class FileService {
         }
 
         String ext = originalName.substring(originalName.lastIndexOf("."));
-        String fileName = UUID.randomUUID().toString();
+        String fileName = originalName.substring(0, originalName.lastIndexOf("."));
         String saveName = fileName + ext;
+
+        // 파일 이름 중복 체크 및 수정
+        int count = 1;
+        while (Files.exists(path.resolve(saveName))) {
+            saveName = fileName + "(" + count + ")" + ext;
+            count++;
+        }
 
         Path filePath = path.resolve(saveName);
 
@@ -33,7 +39,7 @@ public class FileService {
             log.error("파일 저장 중 오류 발생: {}", e.getMessage());
             throw new IOException("파일 저장 실패", e);
         }
-    
+
         return saveName;
     }
 }

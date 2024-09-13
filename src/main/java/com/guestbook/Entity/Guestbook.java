@@ -18,13 +18,13 @@ public class Guestbook {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)
-    private Member member; // 회원과의 관계
+    private Member member;
 
     private String content;
     private String writer;
 
     @Column(name = "guestbook_id", unique = true, nullable = false)
-    private String guestbookId; // 추가된 필드
+    private String guestbookId;
 
     @OneToMany(mappedBy = "guestbook", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<GuestbookContent> contents = new ArrayList<>();
@@ -34,8 +34,7 @@ public class Guestbook {
         guestbook.setMember(member);
         guestbook.setContent(content);
         guestbook.setWriter(writer);
-        guestbook.setGuestbookId(guestbookId); // guestbookId 설정
+        guestbook.setGuestbookId(guestbookId);
         return guestbook;
-
     }
 }

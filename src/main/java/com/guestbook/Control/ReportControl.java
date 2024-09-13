@@ -34,7 +34,7 @@ public class ReportControl {
             Member reporter = optionalMember.get();
 
             // 신고 처리 , writerUserId-신고당한 사람 ID
-           String writerUserId= reportService.submitReport(reporter.getId(),writerId,reason, reasonDetail);
+            String writerUserId= reportService.submitReport(reporter.getId(),writerId,reason, reasonDetail);
 
             return "redirect:/guestbook/detail?guestbookId="+writerUserId; // 신고 완료 후 리다이렉트
         } else {

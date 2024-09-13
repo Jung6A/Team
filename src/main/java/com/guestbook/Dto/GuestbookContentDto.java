@@ -1,7 +1,6 @@
 package com.guestbook.Dto;
 
 import com.guestbook.Entity.GuestbookContent;
-import com.guestbook.Entity.Report;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,15 +15,17 @@ public class GuestbookContentDto {
     private String content;
     private String guestbookId;
     private LocalDateTime createdDate;
+    private String profileImageName; // 프로필 이미지 이름 추가
 
-    // GuestbookContent를 GuestbookContentDto로 변환하는 static 메서드
     public static GuestbookContentDto of(GuestbookContent guestbookContent) {
         GuestbookContentDto dto = new GuestbookContentDto();
         dto.setId(guestbookContent.getId());
         dto.setWriter(guestbookContent.getWriter());
         dto.setContent(guestbookContent.getContent());
-        dto.setGuestbookId(guestbookContent.getGuestbook().getGuestbookId()); // 관계된 Guestbook의 ID를 가져온다
+        dto.setGuestbookId(guestbookContent.getGuestbook().getGuestbookId());
         dto.setCreatedDate(guestbookContent.getCreatedDate());
+        // 프로필 이미지 이름은 Member 객체에서 가져와야 함
+        dto.setProfileImageName(guestbookContent.getGuestbook().getMember().getProfileImageName());
         return dto;
     }
 }

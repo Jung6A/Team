@@ -22,7 +22,7 @@
         <div id="profCard">
             <div id="profIcon">
                 <!-- 프로필 이미지 표시 -->
-                <img th:src="@{/guestbook/{fileName}(fileName=${member.profileImageName})}" alt="프로필 사진" id="profileImage"/>
+                <img th:src="@{/images/{fileName}(fileName=${member.profileImageName})}" alt="프로필 사진" id="profileImage"/>
             </div>
             <div id="profDetail">
                 <!-- 사용자 닉네임, 이메일, 자기소개 -->
@@ -45,7 +45,7 @@
                 <div class="guestContent">
                     <div class="guestIcon">
                         <!-- 방명록 작성자의 프로필 이미지 표시 -->
-                        <!--                        <img th:src="@{/images/{fileName}(fileName=${guest.profileImageName})}" alt="방명록 작성자 프로필 사진" class="guestProfileImage"/>-->
+                        <img th:src="@{/images/{fileName}(fileName=${guest.profileImageName})}" alt="방명록 작성자 프로필 사진" class="guestProfileImage"/>
                     </div>
                     <div class="guestBody">
                         <b th:text="${guest.writer}"></b> <!-- 작성자 표기 -->
@@ -64,12 +64,10 @@
 
     <!-- 신고 모달 -->
     <div id="reportModal" class="modal">
-
         <div class="modal-content">
             <span class="close" onclick="closeModal()"><i class="bi bi-x"></i></span> <!-- 부트스트랩 아이콘으로 x 변경 -->
             <h2>신고 사유 선택</h2>
-            <form id="reportForm" method="post" action="/report/submit"> <!--매핑 필요합니다 !-->
-
+            <form id="reportForm" method="post" action="/report/submit"> <!-- 매핑 필요합니다 !-->
                 <input type="hidden" id="reportedGuestId" name="writerId">
                 <div>
                     <label><input type="radio" name="reason" value="스팸" required> 스팸</label>
