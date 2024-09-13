@@ -6,6 +6,8 @@ import com.guestbook.Entity.Member;
 import com.guestbook.Service.GuestService;
 import com.guestbook.Service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -46,10 +49,16 @@ public class GuestControl {
     }
 
     @GetMapping("/detail")
-    public String getGuestbookDetail(@RequestParam("guestbookId") String guestbookId, Model model) {
+    public String getGuestbookDetail(@RequestParam("guestbookId") String guestbookId, @PathVariable("page") Optional<Integer> page, Model model) {
         Member member = memberService.getMember(guestbookId);
         JoinDto joinDto = JoinDto.of(member);
         model.addAttribute("member", joinDto);
+
+//        //페이징
+//        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 15);
+//        // PageRequest.of(몇 번째 페이지, 한 페이지에 몇 개);
+//        // isPresent -> 값이 있는지
+//        model.addAttribute("page",pageable.getPageNumber());
 
 //        String userId = principal.getName(); // 현재 로그인한 사람의 아이디
 //
