@@ -22,7 +22,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .mvcMatchers("/", "/member/**","/guestbook/**", "/css/**", "/js/**", "/image/**", "images/**").permitAll() // 공개 URL 설정
+                .mvcMatchers("/", "/member/**","/guestbook/**", "/css/**", "/js/**", "/image/**", "/images/**").permitAll() // 공개 URL 설정
                 .anyRequest().authenticated() // 나머지 요청은 인증 필요
                 .and()
                 .formLogin()
