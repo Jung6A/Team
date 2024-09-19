@@ -149,6 +149,10 @@ a {
 .guestTitle{
     margin-bottom: 8px; /* 방명록 글 미리보기와 그 내용 사이에 여백 */
 }
+#limitPost{
+    height: 210px;
+    overflow: auto;
+}
 .post-item{
     display: flex;
     font-size: 14px;

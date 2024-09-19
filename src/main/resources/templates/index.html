@@ -36,9 +36,11 @@
                     <div class="user_main">
                         <h3 class="guestTitle">방명록 글 목록</h3>
                         <!-- 게시글 내용 표시 -->
-                        <div th:each="post : ${proF.guestbookContents}" class="post-item">
-                            <p th:text="${post.content}" class="post-content">게시글 내용</p>
-                            <p class="post-writer" th:text="'-' + ${post.writer}"></p>
+                        <div id="limitPost">
+                            <div th:each="post : ${proF.guestbookContents}" class="post-item">
+                                <p th:text="${post.content}" class="post-content">게시글 내용</p>
+                                <p class="post-writer" th:text="'-' + ${post.writer}"></p>
+                            </div>
                         </div>
                     </div>
                 </div>
