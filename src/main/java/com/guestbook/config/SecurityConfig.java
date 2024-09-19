@@ -23,7 +23,6 @@ public class SecurityConfig {
         http
                 .authorizeRequests()
                 .mvcMatchers("/", "/member/**","/guestbook/**", "/css/**", "/js/**", "/image/**", "images/**").permitAll() // 공개 URL 설정
-                .mvcMatchers("/guest/**").authenticated() // /guest/**는 인증된 사용자만 접근 허용
                 .anyRequest().authenticated() // 나머지 요청은 인증 필요
                 .and()
                 .formLogin()
