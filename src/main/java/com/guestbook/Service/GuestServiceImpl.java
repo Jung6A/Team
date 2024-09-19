@@ -66,8 +66,7 @@ public class GuestServiceImpl implements GuestService {
         for(Report find : cList){
             for(GuestbookContentDto guestbookContentDto : guestbookContentDtos){
                 if (guestbookContentDto.getId() == find.getReportedGuest().getId())
-                    guestbookContentDto.setContent("이 글은 관리자에 의해 삭제된 게시글 입니다.");
-
+                    guestbookContentDto.setContent("이 글은 관리자에 의해 삭제된 게시글입니다.");
             }
         }
 
