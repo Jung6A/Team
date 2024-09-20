@@ -63,11 +63,22 @@ public class GuestServiceImpl implements GuestService {
                 .collect(Collectors.toList());
 
         List<Report> cList = reportRepository.findAll();
-        for(Report find : cList){
-            for(GuestbookContentDto guestbookContentDto : guestbookContentDtos){
-                if (guestbookContentDto.getId() == find.getReportedGuest().getId())
+        for (Report find : cList) {
+            for (GuestbookContentDto guestbookContentDto : guestbookContentDtos) {
+                if (guestbookContentDto.getId().equals(find.getReportedGuest().getId())) {
                     guestbookContentDto.setContent("이 글은 관리자에 의해 삭제된 게시글 입니다.");
+                }
+            }
+        }
 
+        // 댓글 작성자의 프로필 이미지 이름 추가
+        for (GuestbookContentDto dto : guestbookContentDtos) {
+            Member writerMember = memberRepository.findByUserId(dto.getWriter())
+                    .orElse(null);
+            if (writerMember != null) {
+                dto.setProfileImageName(writerMember.getProfileImageName());
+            } else {
+                dto.setProfileImageName(null); // 없을 경우 null 설정
             }
         }
 
@@ -81,6 +92,7 @@ public class GuestServiceImpl implements GuestService {
         dto.setContent(guestbookContent.getContent());
         dto.setGuestbookId(guestbookContent.getGuestbook().getGuestbookId());
         dto.setCreatedDate(guestbookContent.getCreatedDate());
+
         return dto;
     }
 }

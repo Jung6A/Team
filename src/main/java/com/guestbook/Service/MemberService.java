@@ -48,7 +48,7 @@ public class MemberService implements UserDetailsService {
             try {
                 String profileImageName = fileService.uploadFile(uploadPath, profileImage.getOriginalFilename(), profileImage.getBytes());
                 member.setProfileImageName(profileImageName);
-                member.setProfileImageUrl("/guestbook/" + profileImageName);
+                member.setProfileImageUrl("/images/" + profileImageName);
             } catch (Exception e) {
                 throw new IllegalStateException("이미지 파일 처리 오류", e);
             }

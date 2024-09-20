@@ -45,7 +45,7 @@
                 <div class="guestContent">
                     <div class="guestIcon">
                         <!-- 방명록 작성자의 프로필 이미지 표시 -->
-                        <img th:src="@{/images/{fileName}(fileName=${guest.profileImageName})}" alt="방명록 작성자 프로필 사진" class="guestProfileImage"/>
+                        <img th:src="@{'/images/' + ${guest.profileImageName}}" alt="Profile Image">
                     </div>
                     <div class="guestBody">
                         <b th:text="${guest.writer}"></b> <!-- 작성자 표기 -->
@@ -58,8 +58,7 @@
             </div>
         </div>
 
-        <!-- 페이지 네비게이션 (추후 추가 필요) -->
-        <div id="page">페이징을 할 경우 여기?</div>
+
     </div>
 
     <!-- 신고 모달 -->

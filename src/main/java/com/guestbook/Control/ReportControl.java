@@ -36,7 +36,7 @@ public class ReportControl {
             // 신고 처리 , writerUserId-신고당한 사람 ID
             String writerUserId= reportService.submitReport(reporter.getId(),writerId,reason, reasonDetail);
 
-            return "redirect:/guestbook/detail?guestbookId="+writerUserId; // 신고 완료 후 리다이렉트
+            return "redirect:/"; // 신고 완료 후 리다이렉트
         } else {
             // 사용자가 존재하지 않는 경우 처리 (예: 에러 페이지로 리다이렉트)
             return "redirect:/error";

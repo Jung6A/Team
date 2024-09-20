@@ -14,7 +14,7 @@
         <script th:inline="javascript">
             $(function() {
                 $('#profileImageUrl').on('change', function(event) {
-                    var file = <event class="t"></event>arget.files[0];
+                    var file = event.target.files[0]; //
                     if (file) {
                         var reader = new FileReader();
                         reader.onload = function(e) {
