@@ -36,6 +36,7 @@ public class MemberService implements UserDetailsService {
     @Value("${uploadPath}")
     private String uploadPath;
 
+    //회원가입 저장 메서드
     public void saveMember(JoinDto joinDto, PasswordEncoder passwordEncoder) throws Exception {
         Member member = joinDto.createEntity(passwordEncoder);
 
@@ -62,6 +63,7 @@ public class MemberService implements UserDetailsService {
         guestBookRepository.save(guestbook);
     }
 
+    //중복 확인·에러 메시지 출력용 메서드
     private void validateUserIdEmail(Member member) {
         // 아이디 중복 체크
         if (memberRepository.findByUserId(member.getUserId()).isPresent()) {
@@ -84,23 +86,26 @@ public class MemberService implements UserDetailsService {
                 .build();
     }
 
+    //회원 검색
     public Member getMember(String userId) {
         return memberRepository.findByUserId(userId)
                 .orElseThrow(() -> new UsernameNotFoundException("해당 회원을 찾을 수 없습니다: " + userId));
     }
 
+    //모든 회원 정보 추출
     public List<JoinDto> getAllMembers() {
         List<Member> members = memberRepository.findAll();
         return members.stream()
                 .map(JoinDto::of)
                 .collect(Collectors.toList());
     }
+    
+//    public Member findById(String userId) {
+//        return memberRepository.findByUserId(userId)
+//                .orElseThrow(() -> new IllegalStateException("해당 회원을 찾을 수 없습니다: " + userId));
+//    }
 
-    public Member findById(String userId) {
-        return memberRepository.findByUserId(userId)
-                .orElseThrow(() -> new IllegalStateException("해당 회원을 찾을 수 없습니다: " + userId));
-    }
-
+    //유저 id로 방명록 검색
     public List<GuestbookContentDto> getGuestbookContentsByMemberId(String userId) {
         Member member = memberRepository.findByUserId(userId)
                 .orElseThrow(() -> new IllegalStateException("해당 회원을 찾을 수 없습니다: " + userId));

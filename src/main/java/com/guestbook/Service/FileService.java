@@ -13,7 +13,7 @@ import java.nio.file.Paths;
 @Service
 @Slf4j
 public class FileService {
-
+    //파일 업로드시 저장 메서드
     public String uploadFile(String uploadPath, String originalName, byte[] fileData) throws IOException {
         Path path = Paths.get(uploadPath);
         if (!Files.exists(path)) {
@@ -29,7 +29,7 @@ public class FileService {
         while (Files.exists(path.resolve(saveName))) {
             saveName = fileName + "(" + count + ")" + ext;
             count++;
-        }
+        } //중복되는 이름의 파일이 존재할 경우 (1) (2) 등 붙여서 저장
 
         Path filePath = path.resolve(saveName);
 

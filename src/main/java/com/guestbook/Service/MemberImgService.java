@@ -18,7 +18,7 @@ public class MemberImgService {
     private final FileService fileService;
     private final MemberImgRepository itemImgRepository;
 
-    public void saveItemImg(MemberImg memberImg, MultipartFile multipartFile) throws Exception {
+    public void saveMemberImg(MemberImg memberImg, MultipartFile multipartFile) throws Exception {
         String originalName = multipartFile.getOriginalFilename(); // 이미지 원본 이름
         String imgName = "";
         String imgUrl = "";
