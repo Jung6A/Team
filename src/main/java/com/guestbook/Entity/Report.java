@@ -15,6 +15,8 @@ public class Report {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
+
     @ManyToOne
     @JoinColumn(name = "reporter_id")
     private Member reporter; // 신고자- 현재로그인한 사람

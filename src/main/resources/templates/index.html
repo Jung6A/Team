@@ -9,7 +9,9 @@
     <th:block layout:fragment="css">
         <link rel="stylesheet" href="/css/init.css">
     </th:block>
-    <th:block layout:fragment="script"></th:block>
+    <th:block layout:fragment="script">
+        <script th:src="@{/static/js/init.js}"></script>
+    </th:block>
 </head>
 <body>
 <div layout:fragment="main" id="main">
